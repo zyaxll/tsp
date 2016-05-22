@@ -1,0 +1,541 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>江南大学物联网工程学院</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<SCRIPT language=JavaScript>
+function popwin(id)
+{window.open("main/manage/infor_article.asp?id="+id,"","top=10,left=10,height=500,width=750,resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no");
+}
+ function checkok()
+{
+  if(document.form1.username.value=="")
+  {
+    window.alert("请输入帐号");
+    document.form1.username.focus();
+    return false;
+  }
+  if(document.form1.password.value=="")
+  {
+    window.alert("请输入密码");
+    document.form1.password.focus();
+    return false;
+  }
+  return true;
+}
+</SCRIPT>
+<script type="text/javascript">
+function addEvent(obj,evtType,func,cap){
+    cap=cap||false;
+ if(obj.addEventListener){
+     obj.addEventListener(evtType,func,cap);
+  return true;
+ }else if(obj.attachEvent){
+        if(cap){
+         obj.setCapture();
+         return true;
+     }else{
+      return obj.attachEvent("on" + evtType,func);
+  }
+ }else{
+  return false;
+    }
+}
+function getPageScroll(){
+    var xScroll,yScroll;
+ if (self.pageXOffset) {
+  xScroll = self.pageXOffset;
+ } else if (document.documentElement && document.documentElement.scrollLeft){
+  xScroll = document.documentElement.scrollLeft;
+ } else if (document.body) {
+  xScroll = document.body.scrollLeft;
+ }
+ if (self.pageYOffset) {
+  yScroll = self.pageYOffset;
+ } else if (document.documentElement && document.documentElement.scrollTop){
+  yScroll = document.documentElement.scrollTop;
+ } else if (document.body) {
+  yScroll = document.body.scrollTop;
+ }
+ arrayPageScroll = new Array(xScroll,yScroll);
+ return arrayPageScroll;
+}
+function GetPageSize(){
+    var xScroll, yScroll;
+    if (window.innerHeight && window.scrollMaxY) { 
+        xScroll = document.body.scrollWidth;
+        yScroll = window.innerHeight + window.scrollMaxY;
+    } else if (document.body.scrollHeight > document.body.offsetHeight){
+        xScroll = document.body.scrollWidth;
+        yScroll = document.body.scrollHeight;
+    } else {
+        xScroll = document.body.offsetWidth;
+        yScroll = document.body.offsetHeight;
+    }
+    var windowWidth, windowHeight;
+    if (self.innerHeight) {
+        windowWidth = self.innerWidth;
+        windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) {
+        windowWidth = document.body.clientWidth;
+        windowHeight = document.body.clientHeight;
+    } 
+    if(yScroll < windowHeight){
+        pageHeight = windowHeight;
+    } else { 
+        pageHeight = yScroll;
+    }
+    if(xScroll < windowWidth){ 
+        pageWidth = windowWidth;
+    } else {
+        pageWidth = xScroll;
+    }
+    arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight) 
+    return arrayPageSize;
+}		
+//广告脚本文件 AdMove.js
+/*
+例子
+<div id="Div2">
+    ***** content ******
+</div>
+var ad=new AdMove("Div2");
+ad.Run();
+*/
+////////////////////////////////////////////////////////
+var AdMoveConfig=new Object();
+AdMoveConfig.IsInitialized=false;
+AdMoveConfig.ScrollX=0;
+AdMoveConfig.ScrollY=0;
+AdMoveConfig.MoveWidth=0;
+AdMoveConfig.MoveHeight=0;
+AdMoveConfig.Resize=function(){
+    var winsize=GetPageSize();
+    AdMoveConfig.MoveWidth=winsize[2];
+    AdMoveConfig.MoveHeight=winsize[3];
+    AdMoveConfig.Scroll();
+}
+AdMoveConfig.Scroll=function(){
+    var winscroll=getPageScroll();
+    AdMoveConfig.ScrollX=winscroll[0];
+    AdMoveConfig.ScrollY=winscroll[1];
+}
+addEvent(window,"resize",AdMoveConfig.Resize);
+addEvent(window,"scroll",AdMoveConfig.Scroll);
+function AdMove(id){
+    if(!AdMoveConfig.IsInitialized){
+        AdMoveConfig.Resize();
+        AdMoveConfig.IsInitialized=true;
+    }
+    var obj=document.getElementById(id);
+    obj.style.position="absolute";
+    var W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+    var H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+    var x = W*Math.random(),y = H*Math.random();
+    var rad=(Math.random()+1)*Math.PI/6;
+    var kx=Math.sin(rad),ky=Math.cos(rad);
+    var dirx = (Math.random()<0.5?1:-1), diry = (Math.random()<0.5?1:-1);
+    var step = 1;
+    var interval;
+    this.SetLocation=function(vx,vy){x=vx;y=vy;}
+    this.SetDirection=function(vx,vy){dirx=vx;diry=vy;}
+    obj.CustomMethod=function(){
+        obj.style.left = (x + AdMoveConfig.ScrollX) + "px";
+        obj.style.top = (y + AdMoveConfig.ScrollY) + "px";
+        rad=(Math.random()+1)*Math.PI/6;
+        W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+        H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+        x = x + step*kx*dirx;
+        if (x < 0){dirx = 1;x = 0;kx=Math.sin(rad);ky=Math.cos(rad);} 
+        if (x > W){dirx = -1;x = W;kx=Math.sin(rad);ky=Math.cos(rad);}
+        y = y + step*ky*diry;
+        if (y < 0){diry = 1;y = 0;kx=Math.sin(rad);ky=Math.cos(rad);} 
+        if (y > H){diry = -1;y = H;kx=Math.sin(rad);ky=Math.cos(rad);}
+    }
+    this.Run=function(){
+        var delay = 10;
+        interval=setInterval(obj.CustomMethod,delay);
+        obj.onmouseover=function(){clearInterval(interval);}
+        obj.onmouseout=function(){interval=setInterval(obj.CustomMethod, delay);}
+    }
+}
+ //-->
+ </script>
+<body>
+
+<!--<div id="gg1" style="width:298px;height:129px;z-index:100000;">
+	<a href="http://www.cc.jiangnan.edu.cn/ReadNews.asp?NewsID=7149" target="_blank"><img src="fu.jpg" border="0"></a>
+</div>-->
+<script type="text/javascript">
+<!--
+	var ad1=new AdMove("gg1");
+	ad1.Run();
+//-->
+</script>
+
+<!--<div id="img" style="position:absolute; width: 200; height: 151"><a href="http://www.cc.jiangnan.edu.cn/ReadNews.asp?NewsID=5683" target="_blank"><img src="fu2.jpg" border="0"></a></div>
+
+<div id="img1" style="position:absolute; width: 200; height: 151"><a href="http://www.cc.jiangnan.edu.cn/ReadNews.asp?NewsID=7149" target="_blank"><img src="fu.jpg" border="0" width=120 height=50></a></div>-->
+<div id="main_content">
+		<div id="top_banner">
+               	<div>
+                    <ul class="menu">
+                        <li><a href="index.asp" class="nav">首页</a></li>
+						<li><a href="xyld.asp" class="nav">学院领导</a></li>
+                        <li><a href="xyjs.asp" class="nav">学院概况</a></li>
+                        <li><a href="dsjs.asp" class="nav">师资介绍</a></li>
+                        <li><a href="bkjy.asp" class="nav">本科教育</a></li>
+                        <li><a href="yjsjy.asp" class="nav">研究生教育</a></li>
+                        <li><a href="xgindex.asp" class="nav">学生工作</a></li>
+						<li><a href="kxyj.asp" class="nav">科学研究</a></li>
+						<li><a href="djindex.asp" class="nav">党建工作</a></li>
+						
+                    </ul>
+                </div>
+        </div>
+                <div id="center_banner">
+					 	<div id="center_banner_content">
+                        <br /><br /><br />
+						</div>
+                </div>
+                
+                
+                
+        <div id="page_content">
+
+                    	<div id="left_section">
+				<form method="POST" action="office/checklogin.asp" onsubmit="return checkok()" name="form1" target=_blank>
+            	<div class="left_box_border">
+                	<div class="left_box">
+                	<span style="color:#7B0E10; font-weight:bold; font-size:14px; padding:10px;">教师通道</span>
+                    <img src="images/user-icon.png" width="37" height="27" alt="user" title="user"/>
+                    	<div id="login">
+						
+                        <label>账 号 : &nbsp;&nbsp;</label>
+		      			 <input type="text" name="username" class="input" />
+		       			<div class="clear"></div>
+		       			<label>密 码 : &nbsp;&nbsp;</label>
+		      		 	<input type="password" name="password"  class="input"/>
+                         <input type="submit" name="submit" value="Login" class="submit"/>
+						 
+		       			<div class="clear"></div>
+                       
+                        </div>
+                    </div> 
+                </div>
+				</form>
+				
+                <div class="left_box_border">
+                	<div class="left_box">
+					<img src="images/pic1.png" width="53" height="62" alt="pic" title="pic" class="pic"/>
+                    <div class="title"> 重要信息 &nbsp;&nbsp;&nbsp;&nbsp;<a href="information.asp?typeid=32&BigClassID=145&smallclassid=197">more...</a></div>
+                    <div class="content">
+					<a href="ReadNews.asp?NewsID=7219" class="my" target="_blank"><img src="images/a.gif" border="0"> &nbsp;2016年全日制硕士复试考试大纲</a>
+					<!--<a href="ReadNews.asp?NewsID=5868" class="my" target="_blank"><img src="images/a.gif" border="0"> &nbsp;2015年考生考博PPT模板</a>-->
+
+<a href="webc/fushi.asp" class="my" target="_blank"><img src="images/a.gif" border="0"> &nbsp;<font color=red>研究生复试成绩查询</a></a>
+					<a href="http://www.cc.jiangnan.edu.cn/ReadNews.asp?NewsID=7111" class="my" target="_blank"><img src="images/a.gif" border="0"> &nbsp;<font color="blue">2016年全日制研究生入学考试大纲</font></a>
+					</div>	
+                    </div> 
+                </div>
+                
+                <div class="left_box_border">
+                	<div class="left_box">
+					<img src="images/pic2.png" width="53" height="62" alt="pic" title="pic" class="pic"/>
+                    <div class="title"> 相关信息 </div>
+                    <div class="content">
+				<a href="information.asp?typeid=32&BigClassID=154&smallclassid=180" class="my"><img src="images/a.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;工程硕士通信信息</a>
+				<a href="information.asp?typeid=32&BigClassID=154&smallclassid=181" class="my"><img src="images/a.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;工程硕士文件下载</a>
+				<a href="information.asp?typeid=32&BigClassID=154&smallclassid=182" class="my"><img src="images/a.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;成教夜大通知信息</a>
+				<a href="information.asp?typeid=32&BigClassID=154&smallclassid=183" class="my"><img src="images/a.gif" border="0">&nbsp;&nbsp;全国计算机考试相关信息<br />
+				（等级考试、软件考试）</a>
+				
+				
+
+					</div>	
+                    </div> 
+                </div>
+            
+            </div>
+            <div id="right_section">
+                
+                <div class="right_box">
+                <img src="images/pic3.jpg" width="220" height="95" class="pic_border" alt="pic3" title="pic3"  />
+               		<div class="title_small"> 学院概况</div>
+                    <div class="content">
+<a href="xyjs.asp">　　江南大学物联网工程学院组建于2010年，是全国首家物联网实体学院，具有控制、计算机、电气、电子、通信等学科交叉综合优势。学院拥有控制科学与工程博士后流动站、一级学科博士点1个（控制科学与工程）、一级学科硕士点3个...</a>
+                    </div>
+                </div>
+                
+                <div class="right_box">
+					<div id="right_box_1">
+                    	<div class="title"> <a href="information.asp?typeid=32&BigClassID=145&smallclassid=169">学院新闻</a></div>
+                        
+                                <ul class="services">
+
+<li><a href="ReadNews.asp?NewsID=7868" class="nav_services" target="_blank">
+第四届全国高校计算机类专业应用型人才...
+<IMG SRC="../../images/new.gif" WIDTH="35" HEIGHT="15" BORDER=0 ALT="">
+
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7857" class="nav_services" target="_blank">
+陈坚校长参加物联网学院计算机教工党支...
+<IMG SRC="../../images/new.gif" WIDTH="35" HEIGHT="15" BORDER=0 ALT="">
+
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7825" class="nav_services" target="_blank">
+江南大学“博世科创团队奖”颁奖仪式暨...
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7801" class="nav_services" target="_blank">
+物联网工程学院召开2016年关工委工...
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7769" class="nav_services" target="_blank">
+物联网工程学院百万“弘成教育基金”捐...
+</a></li>
+
+											
+                                </ul>
+						<br /><br /><br /><br /><br /><br /><br /><br />
+						<div align="right"><a href="information.asp?typeid=32&BigClassID=145&smallclassid=169">More...</a></div>
+                    	<div class="title"> <a href="information.asp?typeid=32&BigClassID=145&smallclassid=178">通知公告</a></div>
+                        
+                                <ul class="services">
+
+<li><a href="ReadNews.asp?NewsID=7865" target="_blank" class="nav_services">
+物联网工程学院教师出国信息公示201...
+<IMG SRC="../../images/new.gif" WIDTH="35" HEIGHT="15" BORDER=0 ALT="">
+
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7861" target="_blank" class="nav_services">
+关于举办“第四届全国高校计算机类专业...
+<IMG SRC="../../images/new.gif" WIDTH="35" HEIGHT="15" BORDER=0 ALT="">
+
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7851" target="_blank" class="nav_services">
+4月14日学术报告
+<IMG SRC="../../images/new.gif" WIDTH="35" HEIGHT="15" BORDER=0 ALT="">
+
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7814" target="_blank" class="nav_services">
+关于2016年清明节放假的通知
+</a></li>
+
+			
+<li><a href="ReadNews.asp?NewsID=7811" target="_blank" class="nav_services">
+3月30日学术报告
+</a></li>
+
+				
+                                </ul>   
+					<br /><br /><br /><br /><br /><br /><br />
+					<div align="right"><a href="information.asp?typeid=32&BigClassID=145&smallclassid=178">More...</a></div>
+                    </div>
+
+					<div id="right_box_3">
+					<img src="images/pic5.jpg" width="100" height="100" class="pic_news"  />
+					
+					<img src="images/pic4.jpg" width="100" height="100" class="pic_news1"  />
+					</div>
+                    <div id="right_box_2">
+                    	<div class="title">平台建设</div>
+                            <div class="news_box">
+<a href="http://www.cc.jiangnan.edu.cn/webc/control/" target=_blank><img src="images/a.gif" border="0">&nbsp;&nbsp;轻工过程先进控制教育部重点实验室</a>
+
+<img src="images/b.gif" height="10"><br /><br />							
+							<a href="http://www.cc.jiangnan.edu.cn/webc/iot/" target=_blank><img src="images/a.gif" border="0">&nbsp;&nbsp;物联网技术应用教育部工程中心</a><br /><br />
+
+<a href="http://www.cc.jiangnan.edu.cn/ic/" target="_blank"><img src="images/a.gif" border="0">&nbsp;&nbsp;信息与控制实验教学中心</a><br /><br />		
+							<img src="images/b.gif" height="5"><br />
+<a href="http://202.195.144.141/creative/index.asp" target="_blank"><img src="images/a.gif" border="0">&nbsp;&nbsp;大学生创新实践基地</a>
+						
+					
+
+<img src="images/b.gif" height="1">
+							
+							
+                        	</div>
+                            <div class="news_submenu">
+                            	<div class="news_link">
+                                &nbsp;<br />
+                                </div>
+                            </div>                        	<div class="news_box">
+							<img src="images/a.gif">&nbsp;&nbsp;<a href="http://jxj.wuxi.gov.cn" target="_blank">电子警察</a>
+							<img src="images/a.gif"> <a href="http://service.js.10086.cn" target="_blank">话费查询</a><br /><br />
+							<img src="images/a.gif"> <a href="http://www.xinhuanet.com/wx/jtxx/xxcx/lc/lc.htm" target="_blank">火车时刻</a>
+							<img src="images/a.gif"> <a href="http://www.xinhuanet.com/wx/jtxx/xxcx/hb/hb.htm" target="_blank">飞机时刻</a><br /><br />
+							<img src="images/a.gif"> <a href="http://wx.xinhuanet.com/wxly.htm" target="_blank">无锡旅游</a>
+							<img src="images/a.gif"> <a href="http://www.tianqi123.com/tianqi/chengshi_1195.html" target="_blank">天气预报</a><br /><br />
+							<img src="images/a.gif"> <a href="http://www.xinhuanet.com/wx/jtxx/xxcx/gjlx/gj.htm" target="_blank">公交线路</a>
+							<img src="images/a.gif"> <a href="http://map.baidu.com/?newmap=1&s=s%26wd%3D%E6%97%A0%E9%94%A1%E5%B8%82%26c%3D317&fr=alab0" target="_blank">无锡地图</a>
+                        	</div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+
+            
+        </div>
+<div id="footer">
+<div id="copyrights">
+Copyright &copy; 2010　江南大学物联网工程学院　All rights reserved.　无锡蠡湖大道1800号　214122　xkxy@jiangnan.edu.cn　0510-85910633</div>
+</div>
+</div>
+</body>
+</html>
+<script LANGUAGE="JavaScript">
+var xPos = 20;
+var yPos = 10;
+img.style.left= xPos;
+img.style.top = yPos;
+var step = 1;
+var delay = 20; 
+var width,height,Hoffset,Woffset;
+var y = 1;
+var x = 1;
+var interval;
+img.visibility = "visible";
+function changePos() 
+{
+  width = document.body.clientWidth;
+  height = document.body.clientHeight;
+  Hoffset = img.offsetHeight;
+  Woffset = img.offsetWidth;
+  if (y) 
+  {
+    yPos = yPos + step;
+  }
+  else 
+  {
+    yPos = yPos - step;
+  }
+  if (yPos < 0) 
+  {
+    y = 1;
+    yPos = 0;
+  }
+  if (yPos >= (height - Hoffset)) 
+  {
+    y = 0;
+    yPos = (height - Hoffset);
+  }
+  if (x) 
+  {
+    xPos = xPos + step;
+  }
+  else 
+  {
+    xPos = xPos - step;
+  }
+  if (xPos < 0) 
+  {
+    x = 1;
+    xPos = 0;
+  }
+  if (xPos >= (width - Woffset)) 
+  {
+    x = 0;
+    xPos = (width - Woffset);
+  }
+  img.style.left = xPos + document.body.scrollLeft;
+  img.style.top = yPos + document.body.scrollTop;
+}
+function start() 
+{
+  interval = setInterval('changePos()', delay);
+}
+function pause_resume() 
+{
+    clearInterval(interval);
+}
+start();
+</script>
+
+<script LANGUAGE="JavaScript">
+var xPos1 = 670;
+var yPos1 = 470;
+img1.style.left= xPos1;
+img1.style.top = yPos1;
+var step1 = 1;
+var delay1 = 30; 
+var width1,height1,Hoffset1,Woffset1;
+var y1 = 1;
+var x1 = 1;
+var interval1;
+img1.visibility = "visible";
+function changePos1() 
+{
+  width1 = document.body.clientWidth;
+  height1 = document.body.clientHeight;
+  Hoffset1 = img1.offsetHeight;
+  Woffset1 = img1.offsetWidth;
+  if (y1) 
+  {
+    yPos1 = yPos1 + step1;
+  }
+  else 
+  {
+    yPos1 = yPos1 - step1;
+  }
+  if (yPos1 < 0) 
+  {
+    y1 = 1;
+    yPos1 = 0;
+  }
+  if (yPos1 >= (height1 - Hoffset1)) 
+  {
+    y1 = 0;
+    yPos1 = (height1 - Hoffset1);
+  }
+  if (x1) 
+  {
+    xPos1 = xPos1 + step1;
+  }
+  else 
+  {
+    xPos1 = xPos1 - step1;
+  }
+  if (xPos1 < 0) 
+  {
+    x1 = 1;
+    xPos1 = 0;
+  }
+  if (xPos1 >= (width1 - Woffset1)) 
+  {
+    x1 = 0;
+    xPos1 = (width1 - Woffset1);
+  }
+  img1.style.left = xPos1 + document.body.scrollLeft;
+  img1.style.top = yPos1 + document.body.scrollTop;
+}
+function start1() 
+{
+  interval1 = setInterval('changePos1()', delay1);
+}
+function pause_resume() 
+{
+    clearInterval(interval1);
+}
+start1();
+</script>

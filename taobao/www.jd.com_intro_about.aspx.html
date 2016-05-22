@@ -1,0 +1,356 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>企业简介-京东商城</title>
+
+<link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,global-header/1.0.0/global-header.css,myjd/2.0.0/myjd.css,nav/2.0.0/nav.css,shoppingcart/2.0.0/shoppingcart.css,global-footer/1.0.0/global-footer.css,service/1.0.0/service.css" media="all"/>
+<link type="text/css" rel="stylesheet" href="//static.360buyimg.com/webstatic/about/1.0.0/css/aboutjd20100601.css" />
+<script type="text/javascript" src="//misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/unit/base/1.0.0/base.js" source="combo"></script>
+<script language="javascript" type="text/javascript" src="//static.360buyimg.com/webstatic/about/1.0.0/js/aboutjd.js"></script>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+<div id="shortcut-2014">
+	<div class="w">
+		<ul class="fl">
+			<li class="dorpdown" id="ttbar-mycity"></li>
+		</ul>
+		<ul class="fr">
+			<li class="fore1" id="ttbar-login">
+				<a target="_blank" href="javascript:login();" class="link-login">你好，请登录</a>&nbsp;&nbsp;<a href="javascript:regist();" class="link-regist style-red">免费注册</a>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore2">
+				<div class="dt">
+					<a target="_blank" href="//order.jd.com/center/list.action">我的订单</a>
+				</div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore3 dorpdown" id="ttbar-myjd">
+				<div class="dt cw-icon">
+					<i class="ci-right"><s>◇</s></i>
+					<a target="_blank" href="//home.jd.com/">我的京东</a>
+				</div>
+				<div class="dd dorpdown-layer"></div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore4">
+				<div class="dt">
+					<a target="_blank" href="//vip.jd.com/">京东会员</a>
+				</div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore5">
+				<div class="dt">
+					<a target="_blank" href="//b.jd.com/">企业采购</a>
+				</div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore6 dorpdown" id="ttbar-apps">
+				<div class="dt cw-icon">
+					<i class="ci-left"></i>
+					<i class="ci-right"><s>◇</s></i>
+					<a target="_blank" href="//app.jd.com/">手机京东</a>
+				</div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore7 dorpdown" id="ttbar-atte">
+				<div class="dt cw-icon">
+					<i class="ci-right"><s>◇</s></i>关注京东
+				</div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore8 dorpdown" id="ttbar-serv">
+				<div class="dt cw-icon">
+					<i class="ci-right"><s>◇</s></i>客户服务
+				</div>
+				<div class="dd dorpdown-layer"></div>
+			</li>
+			<li class="spacer"></li>
+			<li class="fore9 dorpdown" id="ttbar-navs">
+				<div class="dt cw-icon">
+					<i class="ci-right"><s>◇</s></i>网站导航
+				</div>
+				<div class="dd dorpdown-layer"></div>
+			</li>
+		</ul>
+		<span class="clr"></span>
+	</div>
+</div>
+<div id="o-header-2013"><div id="header-2013" style="display:none;"></div></div>
+
+<!--shortcut end-->
+<div class="w">
+	<div id="logo-2014">
+		<a href="//www.jd.com/" class="logo">京东</a>
+	</div>
+	<div id="search-2014" >
+		<ul id="shelper" class="hide"></ul>
+		<div class="form">
+			<input type="text" onkeydown="javascript:if(event.keyCode==13) search('key');" autocomplete="off" id="key" accesskey="s" class="text" />
+			<button onclick="search('key');return false;" class="button cw-icon"><i></i>搜索</button>
+		</div>
+	</div>
+	<div id="settleup-2014" class="dorpdown">
+		<div class="cw-icon">
+			<i class="ci-left"></i>
+			<i class="ci-right">&gt;</i>
+			<a target="_blank" href="//cart.jd.com/cart/cart.html">我的购物车</a>
+		</div>
+		<div class="dorpdown-layer">
+			<div class="spacer"></div>
+			<div id="settleup-content">
+				<span class="loading"></span>
+			</div>
+		</div>
+	</div>
+	<div id="hotwords-2014"></div>
+	<span class="clr"></span>
+</div>
+<div id="nav-2014">
+	<div class="w">
+		<div class="w-spacer"></div>
+		<div id="categorys-2014" class="dorpdown"  data-type="default">
+			<div class="dt">
+				<a target="_blank" href="//www.jd.com/allSort.aspx">全部商品分类</a>
+			</div>
+		</div>
+		<div id="navitems-2014">
+			<ul id="navitems-group1">
+				<li id="nav-fashion" class="fore1" >
+					<a target="_blank" href="//channel.jd.com/fashion.html">服装城</a>
+				</li>
+				<li id="nav-beauty" class="fore2" >
+					<a target="_blank" href="//channel.jd.com/beauty.html">美妆馆</a>
+				</li>
+				<li id="nav-chaoshi" class="fore3" >
+					<a target="_blank" href="//channel.jd.com/chaoshi.html">超市</a>
+				</li>
+				<li id="nav-jdww" class="fore4" >
+					<a target="_blank" href="//www.jd.hk/">全球购</a>
+				</li>
+			</ul>
+			<div class="spacer"></div>
+			<ul id="navitems-group2">
+				<li id="nav-red" class="fore1" >
+					<a target="_blank" href="//red.jd.com/">闪购</a>
+				</li>
+				<li id="nav-tuan" class="fore2" >
+					<a target="_blank" href="//tuan.jd.com/">团购</a>
+				</li>
+				<li id="nav-auction" class="fore3" >
+					<a target="_blank" href="//paimai.jd.com/">拍卖</a>
+				</li>
+				<li id="nav-jr" class="fore4" >
+					<a target="_blank" href="//jr.jd.com/">金融</a>
+				</li>
+			</ul>
+		</div>
+		<div id="treasure"></div>
+		<span class="clr"></span>
+	</div>
+</div>
+<!-- header end -->
+
+<!--[if !ie]>顶部内容结束<![endif]-->
+
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+	<!--[if !ie]>Position 开始<![endif]-->
+	<div id="Position" class="margin_b6"><a href="//www.jd.com/">首页</a><span>&gt;</span>&nbsp;关于京东<span>&gt;</span>&nbsp;企业简介</div>
+	<!--[if !ie]>Position 结束<![endif]-->
+	<!--[if !ie]>left 开始<![endif]-->
+	<div class="left">
+		<script language="javascript" src="//static.360buyimg.com/webstatic/about/1.0.0/js/leftside.js"></script>
+		<div class="borderlr"></div>
+		<div class="corner_b"><div class="corner_bl"></div><div class="corner_br"></div></div>
+	</div>
+	<!--[if !ie]>left 结束<![endif]-->
+	<!--[if !ie]>right 开始<![endif]-->
+	<div class="right">
+		<div class="corner_t"><div class="corner_tl"></div><div class="corner_tr"></div></div><div class="corner_c"></div>
+		<!--[if !ie]>内容 开始<![endif]-->
+		<div class="content">
+			<h1 class="tit">关于京东（JD.com）</h1>
+			<p>京东于2004年正式涉足电商领域。2015年，京东集团市场交易额达到4627亿元，净收入达到1813亿元，年交易额同比增长78%，增速是行业平均增速的2倍*。京东是中国收入规模最大的互联网企业。截至2015年12月31日，京东集团拥有近11万名正式员工，业务涉及电商、金融和技术三大领域。</p>
+			<p>2014年5月，京东集团在美国纳斯达克证券交易所正式挂牌上市，是中国第一个成功赴美上市的大型综合型电商平台，并成功跻身全球前十大互联网公司排行榜，2015年7月，京东凭借高成长性入选纳斯达克100指数和纳斯达克100平均加权指数。</p>
+			<h3>京东商城</h3>
+			<p>京东商城目前已成长为中国最大的自营式电商企业，2015年第三季度在中国自营式B2C电商市场的占有率为56.9%*。京东商城致力于为消费者提供愉悦的在线购物体验，自2004年成立以来，坚持“正品行货”的理念，对假货零容忍。通过内容丰富、人性化的网站（www.jd.com）和移动客户端，京东商城以富有竞争力的价格，提供具有丰富品类及卓越品质的商品和服务，以快速可靠的方式送达消费者，并且提供灵活多样的支付方式。京东商城致力于打造一站式综合购物平台，服务中国亿万家庭，3C事业部、家电事业部、消费品事业部、服饰家居事业部、生鲜事业部和新通路事业部六大部门领航发力，覆盖用户多元需求。同时，京东商城还为第三方卖家提供在线销售平台和物流等一系列增值服务。</p>
+			<p>京东拥有中国电商领域规模最大的物流基础设施；通过完善布局，京东将成为全球唯一拥有中小件、大件、冷藏冷冻仓配一体化物流设施的电商企业。截至2015年12月31日，京东在全国范围内拥有7大物流中心，在50座城市运营了213个大型仓库，拥有5367个配送站和自提点，仓储设施占地面积约400万平方米。京东专业的配送队伍能够为消费者提供一系列专业服务，如：211限时达、次日达、夜间配和2小时极速达，GIS包裹实时追踪、售后100分、快速退换货以及家电上门安装等服务，保障用户享受到卓越、全面的物流配送和完整的“端对端”购物体验。京东智能物流持续创新，“亚洲一号”现代化物流中心是当今中国最大、最先进的电商物流中心之一，目前已有6座“亚洲一号”投入使用；京东物流实验室开始测试无人机送货，为农村电商配送提速。</p>
+			<p>2014年3月京东与腾讯达成了战略合作，全面推进移动社交电商新模式的发展，成为全球移动社交的积极探索者和实践者。目前，京东已经形成了手机客户端、微信购物、手机QQ购物组成的完整移动购物布局。2015年第四季度通过移动端渠道完成核心业务的订单量约占总核心业务订单量的61.4%，同比增长超过230%。</p>
+			<p>2015年，京东加速渠道下沉，大力发展农村电商，推进3F战略，即工业品进农村战略(Factory to Country)、农村金融战略(Finance to Country)和生鲜电商战略(Farm to Table)，已初见成效，截至2015年12月底，已经开设约800家“县级服务中心”和近1300家“京东帮服务店”；拥有约15万名乡村推广员，覆盖12000个乡镇的15万个村，服务25万个村庄的村民。</p>
+			<h3>京东到家</h3>
+			<p>京东到家于2015年3月正式独立运营，是京东集团2015年重点打造的O2O生活服务平台，是基于传统B2C模式向高频领域的重要提升。它既基于京东物流体系和物流管理优势，同时依托“互联网+”技术大力发展“众包物流”，整合各类O2O生活类目，向消费者提供3公里范围内生鲜及超市产品的配送，并实现2小时内快速送达，打造生活服务一体化应用平台。目前京东到家提供各类到家服务，如超市到家、外卖到家、品质生活、上门服务、健康到家等。</p>
+			<h3>跨境电商</h3>
+			<p>京东在跨境进出口业务方面都制定了详细的发展规划，全面加速国际化进程。</p>
+			<p>在进口业务方面，成立了“京东全球购”平台。目前，已开设的国家馆有“法国馆”、“韩国馆”、“日本馆”、“澳大利亚馆”、“美国馆”、“德国馆”和“英国馆”；已开设的地区馆有“台湾馆”和“香港馆”，中国消费者足不出户即可享受全球优质商品。</p>
+			<p>在出口业务方面，京东的多语言全球售跨境贸易平台en.jd.com，致力于满足全球用户需求，立足全球供应链，以“全球化+本地化”模式带动海量“中国好商品”与“中国好商家”走出去。目前已在俄罗斯、乌克兰、印度尼西亚展开布局。</p>
+			<h3>京东金融</h3>
+			<p>京东金融集团，于2013年10月开始独立运营，定位为金融科技公司。京东金融依托京东生态平台积累的交易记录数据和信用体系，向社会各阶层提供消费金融、理财、支付、众筹等各类金融服务。同时，夯实金融门户基础，并依托京东众创生态圈，为创业创新者提供全产业链一站式服务。</p>
+			<p>京东金融现已建立七大业务板块，分别是供应链金融、消费金融、众筹、财富管理、支付、保险、证券，陆续推出了京保贝、白条、京东钱包、小金库、京小贷、产品众筹、私募股权融资、小白理财等创新产品。</p>
+			<h3>京东技术</h3>
+			<p>京东是一家业务与技术双导向的公司，从成立伊始，就投入大量资源开发完善可靠、能够不断升级、以电商应用服务为核心的自有技术平台。</p>
+			<p>技术对京东的价值可以总结为业务保障和技术突破两个方面。业务保障包括基础保障、平台保障和安全保障，能够支持京东的高速顺畅运营，应对618、双11等电商大促的海量订单压力。在完成业务保障的基础上，技术突破会给京东带来更高的运行效率和更多的商业机会。目前京东的技术突破有相当的比重是从大数据中产生的，比如大数据能帮助我们让用户体验更好、运营效率更高，完成个性化推荐搜索、自动补货、自动定价等应用；同时，京东云在完成全面京东业务运营支撑的同时，会成为京东对外提供技术、方案服务的核心，京东将自身的技术、资源和经验全面云化输出，帮助政府、行业用户迅速走上“互联网+”进程。</p>
+			<p>京东致力于成为一家为社会创造最大价值的公司，在就业、纳税、全球化等方面积极践行企业社会责任，成为一家真正的国民企业是我们的长远目标。</p>
+			
+			<dl class="memorabilia margin_tb10">
+				<dt>备注：</dt>
+				<dd>* 据商务部数据显示，2015年全国网络零售交易额为3.88万亿元，同比增长33.3%<br>* 数据来源于艾瑞咨询，2015年12月发布</dd> 
+			</dl>
+			<h3>配送服务说明：</h3>
+			<p>211限时达：当日上午11：00前提交的现货订单（部分城市为上午10点前），以订单出库完成拣货时间点开始计算，当日送达；夜里11：00前提交的现货订单（以订单出库后完成拣货时间点开始计算），次日15：00前送达。</p>
+			<p>次日达：在一定时间点之前提交的现货订单（以订单出库后完成拣货的时间点开始计算），将于次日送达。</p>
+			<p>极速达：京东为消费者提供的一项个性化付费增值服务。消费者通过“在线支付”方式全额成功付款或“货到付款”方式成功提交订单，并勾选“极速达”服务后，京东会在服务时间内，2小时将商品送至消费者所留地址，目前仅北京、上海、广州、成都等部分城市的部分派送区域支持极速达服务。</p>
+			<p>夜间配：京东为消费者提供更快速、更便利的一项增值服务。消费者下单时在日历中选择“19:00-22:00”时段，属“夜间配”服务范围内的商品，京东会尽可能安排配送员在消费者选定当日晚间19:00-22:00送货上门。目前，“夜间配”业务在北京、上海、广州、成都、武汉、沈阳六个城市提供服务。</p>
+			<h3>媒体垂询:</h3>
+			<p>media-contact@jd.com</p>
+	  </div>
+		<!--[if !ie]>内容 结束<![endif]-->
+		<div class="corner_b"><div class="corner_bl"></div><div class="corner_br"></div></div>
+		<!--[if !ie]>help_tips 开始<![endif]-->
+		<!--[if !ie]>help_tips 结束<![endif]-->
+	</div>
+	<!--[if !ie]>right 结束<![endif]-->
+</div>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+<div class="w">
+	<div id="service-2014">
+		<div class="slogen">
+			<span class="item fore1">
+				<i></i><b>多</b>品类齐全，轻松购物
+			</span>
+			<span class="item fore2">
+				<i></i><b>快</b>多仓直发，极速配送
+			</span>
+			<span class="item fore3">
+				<i></i><b>好</b>正品行货，精致服务
+			</span>
+			<span class="item fore4">
+				<i></i><b>省</b>天天低价，畅选无忧
+			</span>
+		</div>
+		<div class="w">
+			<dl class="fore1">
+				<dt>购物指南</dt>
+				<dd>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-29.html">购物流程</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-151.html">会员介绍</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-297.html">生活旅行/团购</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue.html">常见问题</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-136.html">大家电</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/index.html">联系客服</a></div>
+				</dd>
+			</dl>
+			<dl class="fore2">		
+				<dt>配送方式</dt>
+				<dd>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-81-100.html">上门自提</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-81.html">211限时达</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/103-983.html">配送服务查询</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/109-188.html">配送费收取标准</a></div>				
+					<div><a target="_blank" href="//en.jd.com/chinese.html">海外配送</a></div>
+				</dd>
+			</dl>
+			<dl class="fore3">
+				<dt>支付方式</dt>
+				<dd>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-172.html">货到付款</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-173.html">在线支付</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-176.html">分期付款</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-174.html">邮局汇款</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-175.html">公司转账</a></div>
+				</dd>
+			</dl>
+			<dl class="fore4">		
+				<dt>售后服务</dt>
+				<dd>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/321-981.html">售后政策</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-132.html">价格保护</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/130-978.html">退款说明</a></div>
+					<div><a rel="nofollow" target="_blank" href="//myjd.jd.com/repair/repairs.action">返修/退换货</a></div>
+					<div><a rel="nofollow" target="_blank" href="//help.jd.com/user/issue/list-50.html">取消订单</a></div>
+				</dd>
+			</dl>
+			<dl class="fore5">
+				<dt>特色服务</dt>
+				<dd>		
+					<div><a target="_blank" href="//help.jd.com/user/issue/list-133.html">夺宝岛</a></div>
+					<div><a target="_blank" href="//help.jd.com/user/issue/list-134.html">DIY装机</a></div>
+					<div><a rel="nofollow" target="_blank" href="//fuwu.jd.com/">延保服务</a></div>
+					<div><a rel="nofollow" target="_blank" href="//giftcard.jd.com/market/index.action">京东E卡</a></div>				
+					<div><a rel="nofollow" target="_blank" href="//mobile.jd.com/">京东通信</a></div>
+					<div><a rel="nofollow" target="_blank" href="//s.jd.com/">京东JD+</a></div>
+				</dd>
+			</dl>
+			<span class="clr"></span>
+		</div>
+	</div>
+</div><!-- service end -->
+<div class="w">
+	<div id="footer-2014">
+		<div class="links">
+			<a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx">关于我们</a>|<a rel="nofollow" target="_blank" href="//www.jd.com/contact/">联系我们</a>|<a rel="nofollow" target="_blank" href="//www.jd.com/contact/joinin.aspx">商家入驻</a>|<a rel="nofollow" target="_blank" href="//jzt.jd.com">营销中心</a>|<a rel="nofollow" target="_blank" href="//app.jd.com/">手机京东</a>|<a target="_blank" href="//club.jd.com/links.aspx">友情链接</a>|<a target="_blank" href="//media.jd.com/">销售联盟</a>|<a href="//club.jd.com/" target="_blank">京东社区</a>|<a href="//gongyi.jd.com" target="_blank">京东公益</a>|<a href="//en.jd.com/" target="_blank">English Site</a>|<a href="//en.jd.com/help/question-58.html" target="_blank">Contact Us</a>
+		</div>
+		<div class="copyright"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000088"><img src="//img13.360buyimg.com/cms/jfs/t2293/321/1377257360/19256/c267b386/56a0a994Nf1b662dc.png" /> 京公网安备 11000002000088号</a>&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="http://img14.360buyimg.com/da/jfs/t256/349/769670066/270505/3b03e0bb/53f16c24N7c04d9e9.jpg">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>&nbsp;&nbsp;|&nbsp;&nbsp;新出发京零&nbsp;字第大120007号<br><a rel="nofollow" href="http://misc.360buyimg.com/skin/df/i/com/f_music.jpg" target="_blank">音像制品经营许可证苏宿批005号</a>&nbsp;&nbsp;|&nbsp;&nbsp;出版物经营许可证编号新出发(苏)批字第N-012号&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证编号新出网证(京)字150号<br><a href="http://misc.360buyimg.com/wz/wlwhjyxkz.jpg" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>&nbsp;&nbsp;违法和不良信息举报电话：4006561155&nbsp;&nbsp;Copyright&nbsp;&copy;&nbsp;2004-2016&nbsp;&nbsp;京东JD.com&nbsp;版权所有<br>京东旗下网站：<a target="_blank" href="http://www.360top.com/">360TOP</a>&nbsp;&nbsp;<a href="http://www.paipai.com/" target="_blank">拍拍网</a>&nbsp;&nbsp;<a href="https://www.wangyin.com/" target="_blank">网银在线</a>
+		</div>
+		
+		<div class="authentication">
+			<a rel="nofollow" target="_blank" href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202007080200026">
+				<img width="103" height="32" alt="经营性网站备案中心" src="//img12.360buyimg.com/da/jfs/t535/349/1185317137/2350/7fc5b9e4/54b8871eNa9a7067e.png"/>
+			</a>
+			<script type="text/JavaScript">function CNNIC_change(eleId){var str= document.getElementById(eleId).href;var str1 =str.substring(0,(str.length-6));str1+=CNNIC_RndNum(6); document.getElementById(eleId).href=str1;}function CNNIC_RndNum(k){var rnd=""; for (var i=0;i < k;i++) rnd+=Math.floor(Math.random()*10); return rnd;}</script>
+			<a rel="nofollow" target="_blank" id="urlknet" tabindex="-1" href="https://ss.knet.cn/verifyseal.dll?sn=2008070300100000031&amp;ct=df&amp;pa=294005">
+				<img border="true" width="103" height="32" onclick="CNNIC_change('urlknet')" oncontextmenu="return false;" name="CNNIC_seal" alt="可信网站" src="//img11.360buyimg.com/da/jfs/t643/61/1174624553/2576/4037eb5f/54b8872dNe37a9860.png"/>
+			</a>
+			<a rel="nofollow" target="_blank" href="http://www.bj.cyberpolice.cn/index.do">
+				<img width="103" height="32" alt="网络警察" src="//img12.360buyimg.com/cms/jfs/t2050/256/1470027660/4336/2a2c74bd/56a89b8fNfbaade9a.jpg"/>
+			</a>
+			<a rel="nofollow" target="_blank" href="https://search.szfw.org/cert/l/CX20120111001803001836">
+				<img width="103" height="32" src="//img11.360buyimg.com/da/jfs/t451/173/1189513923/1992/ec69b14a/54b8875fNad1e0c4c.png"/>
+			</a>
+                        <a target="_blank" href="http://www.12377.cn"><img width="103" height="32" src="//img30.360buyimg.com/da/jfs/t1915/215/1329999964/2996/d7ff13f0/5698dc03N23f2e3b8.jpg"></a>
+                        <a target="_blank" href="http://www.12377.cn/node_548446.htm"><img width="103" height="32" src="//img14.360buyimg.com/da/jfs/t2026/221/2097811452/2816/8eb35b4b/5698dc16Nb2ab99df.jpg"></a>
+		</div>
+	</div>
+</div>
+<!-- footer end -->
+<script type="text/javascript" src="//wl.jd.com/wl.js"></script>
+<script type="text/javascript">
+var _mvq = _mvq || [];
+_mvq.push(['$setAccount', 'm-9-1']);
+_mvq.push(['$logConversion']);
+(function() {
+    var mvl = document.createElement('script');
+    mvl.type = 'text/javascript'; mvl.async = true;
+    mvl.src = '//misc.360buyimg.com/lib/js/2012/mvl.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(mvl, s);
+})();
+</script>
+<!-- <script type="text/javascript" src="//misc.360buyimg.com/lib/js/2012/lib-v1.js"></script> -->
+<script type="text/javascript" src="//dc.3.cn/hotwords/get?Position=A-index-013" charset="gb2312"></script>
+<!--[if !ie]>底部内容结束<![endif]-->
+<script type="text/javascript">
+
+        seajs.use(['//misc.360buyimg.com/jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js'],function(globalInit){
+
+            globalInit();
+
+        });
+
+        //如果使用首页热搜词
+
+        seajs.use("//misc.360buyimg.com/jdf/1.0.0/unit/hotwords/1.0.0/hotwords",function(hotwords){
+
+            hotwords();
+
+        }); 
+
+</script>
+
+
+</body>
+</html>

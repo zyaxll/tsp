@@ -1,0 +1,1105 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无锡教育网</title>
+<link href="/Template/Default/Skin/education/default.css" rel="stylesheet" type="text/css">
+<link href="/Template/Default/Skin/education/index.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+.style1 {color: #CC0000}
+-->
+</style>
+<script type="text/javascript">
+    var siteSetup = {sitePath: '/',ajaxPath: '/ajax.aspx',skinPath: '/Template/Default/Skin/'};
+</script>
+<script language="javascript" type="text/javascript" src="/js/jquery.pack.js"></script>
+<script language="javascript" type="text/javascript" src="/js/jquery.peex.js"></script>
+<script type="text/javascript" src="/Template/Default/Skin/education/js/jquery.SuperSlide.js"></script>
+<script language="javascript" type="text/javascript" src="/Template/Default/Skin/education/js/js.js"></script>
+<!--[if lte IE 6]>
+<script src="/Template/Default/Skin/education/js/DD_belatedPNG.js" type="text/javascript"></script>
+<script type="text/javascript">
+         DD_belatedPNG.fix('*');
+</script>
+<![endif]-->
+
+</head>
+
+<body>
+<!--Wrap S-->
+<div id="Wrap">
+<!--top S-->
+<div id="Top">
+	<div class="topBox">
+    	<div class="date">今日是：<span><script language="javascript" type="text/javascript" src="/Template/Default/Skin/education/js/date.js"></script></span></div>
+        <div class="user">            <span id="miniLoginStatus"><img id="" src="/Template/Default/Skin/Images/loading.gif" alt="正在加载数据..." /></span>
+	    <span id="miniLogin" style="display: none">
+        	<span class="leftLogin">
+               <span>用户名：<input value="" name="username" type="text" class="input" onclick="this.value=''"/></span>
+               <span>密码：<input value="" name="userpass" type="password" class="input" onclick="this.value=''"/></span>
+<span id="miniValidate" style="display: none">验证码：<input id="miniValidationCode" name="validate" type="text" maxlength="6" /><img style="display:none" class="validateSign" id="miniValidateSign" title="换一个" src="" /></span>
+</span>
+<span class="saveinfo"><a id="loginBtn" class="login">登录</a><!--<a href="/User/Register.aspx" class="reg">免费注册</a>-->
+            </span>
+            </span>
+            <span id="miniLogined" style="display: none">
+                <strong>{username}</strong>，您好！欢迎你的回来。
+                <a href="/User/Default.aspx">会员中心</a>|<a id="loginoutBtn" name="logout" href="javascript:void(0)">退出登录</a>
+            </span>
+
+<script type="text/javascript">
+    jQuery(function() {
+        var miniCheckUserLogin = function() {
+            $.pe.ajax('checkUserLogin', { success: function(response) {
+                var _response = $(response);
+                if (_response.find('status').text() == 'ok') {
+                    $('#miniLoginStatus').hide();
+		   var _loginedUserInfo = $('#miniLogined');
+                    _loginedUserInfo.html($.pe.replaceUserInfoVariable(_loginedUserInfo.html(), _response)).fadeIn();
+                    
+                    $('#loginoutBtn').click(function() {
+                        $.pe.ajax('logout', { success: function(response) {
+                            if ($(response).find('status').text() == 'ok') {
+                                $('#miniLogin input[name="username"]').val('');
+                                $('#miniLogin input[name="userpass"]').val('');
+                                $('#miniLogin input[name="validate"]').val('');
+                                $('#miniLogin input[name="saveinfo"]').attr("checked", false);
+                                location.reload();
+                            }
+                        }
+                        });
+                    })
+                } else {
+                    $.pe.ajax('checkLoginValidate', { success: function(response) {
+                        if ($(response).find('status').text() == 'yes') {
+                            $('#miniValidateSign').click(function() { $.pe.refreshValidateCode('.validateSign'); });
+                            $('#miniValidate').show();
+                        }
+                    }
+                    });
+                    $('#miniValidationCode').focus(function(){$('#miniValidateSign').click();$('#miniValidateSign').show();})
+                    $('#loginBtn').click(function() {
+                        var username = $('#miniLogin input[name="username"]');
+                        var userpass = $('#miniLogin input[name="userpass"]');
+                        var saveinfo = $('#miniLogin input[name="saveinfo"]');
+                        var validate = $('#miniLogin input[name="validate"]');
+
+                        if (username.val() == '') {
+                            alert('请填写用户名！');
+                            username.focus();
+                            return;
+                        }
+                        if (userpass.val() == '') {
+                            alert('请填写密码！');
+                            userpass.focus();
+                            return;
+                        }
+                        if ($('#miniValidate').css("display") != 'none') {
+                            if (validate.val() == '') {
+                                alert("请填写验证码！");
+                                validate.focus();
+                                return;
+                            }
+                        }
+                        $.pe.ajax('userLogin', {
+
+                            params: {
+                                username: username.val(),
+                                password: userpass.val(),
+                                checkcode: validate.val(),
+                                expiration: saveinfo.attr("checked") ? 'Month' : 'None'
+                            }, success: function(response) {
+                                var _response = $(response)
+                                switch (_response.find('status').text()) {
+                                    case "ok":
+                                        location.reload();
+                                        break;
+                                    case "err":
+                                        alert(_response.find('body').text());
+                                        $.pe.refreshValidateCode($('.validateSign'));
+                                        break;
+                                }
+                            }
+                        })
+                    })
+                    $('#miniLoginStatus').hide();
+                    $('#miniLogin').fadeIn();
+                    $('#miniLogin').keypress(function(e) {
+                        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                            $('#loginBtn').click();
+                            return false;
+                        }
+                        return true;
+                    })
+                }
+            }
+            })
+        }
+        miniCheckUserLogin();
+    })
+</script></div>
+        <div class="links">　　　<span><iframe width="220" scrolling="no" height="25" frameborder="0" marginheight="0" marginwidth="0" src="http://news.chinaso.com/chinasosearch/link5.html" style="margin-top:2px"></iframe></span>
+        </div>
+    </div>
+</div>
+<!--top E-->
+<!--Header S-->
+<div id="Header">
+	<!--logo/搜索/外链 S-->
+	<div class="sup">
+        <div class="logo"><a href="/"><img src="/Template/Default/Skin/education/images/logo2.jpg"  alt=""/></a></div>
+        <div class="search">
+           <div class="siteSearch">
+	<a href="javascript:gSearch()" class="searchBtn"></a>
+	<input type="text" maxlength="50" id="topKeyWord" class="keyWord" value="请输入搜索关键字" onfocus="this.value='';this.style.color='#333'" />
+</div>
+
+<script type="text/javascript">
+	if( ''!='' ){ document.getElementById('topKeyWord').value=''; }
+	document.getElementById("topKeyWord").onkeydown=function(e){
+	 e = e || window.event;
+	if(e.keyCode==13) {gSearch();}
+}
+
+function gSearch(){
+	var keyword = document.getElementById('topKeyWord').value;
+	if(keyword=='' || keyword=="请输入搜索关键字"){ alert("请输入搜索关键字"); }
+	else{
+               window.location = '/search/s.aspx?c=&f=0&wd='+encodeURI(keyword);
+		//window.location = '/search.aspx?searchtype=0&fieldOption=title&Keyword='+encodeURI(keyword);
+	}
+}
+</script>
+        </div>
+        <div class="links">
+        	<ul>
+                <li><a href="http://www.wxjy.com.cn/aa/2016/wxjyapp" target="_blank" class="a3">无锡教育APP</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--logo/搜索/外链 E-->
+    
+    <!--栏目导航 S-->
+    <div class="sub">
+        <div class="redNav">
+        	<ul>
+                <li class="a1"><a href="http://www.wxjy.com.cn" target="_blank">网站首页</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_11/Index.aspx" target="_blank">锡城教育</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://jydd.wxjy.com.cn" target="_blank">教育督导</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://wxgz.wxjy.com.cn/gzw" target="_blank">高教职教</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_13/Index.aspx" target="_blank">学校快讯</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_14/Index.aspx" target="_blank">校园采风</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_3/Index.aspx" target="_blank">招生考试</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://www.wxecie.com" target="_blank">国际交流</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://blog.wxjy.com.cn/" target="_blank">教育博客</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://weibo.com/wxjyw" target="_blank">教育微博</a></li>
+                <li class="spe">|</li>
+                <li class="a1 last"><a href="http://www.wxjy.com.cn/Category_10/Index.aspx" target="_blank">教育视频</a></li>
+</ul>
+</div>
+<div class="mainNav">
+        	<ul>
+                <li class="a1"><a href="/Category_6/Index.aspx" target="_blank">梁溪书苑</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_24/Index.aspx" target="_blank">校长视点</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_26/Index.aspx" target="_blank">学术交流</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_25/Index.aspx" target="_blank">教育人物</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_27/Index.aspx" target="_blank">教育随笔</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="/Category_7/Index.aspx" target="_blank">心理健康</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://www.wxcj.net.cn/" target="_blank">继续教育</a></li>
+                <li class="spe">|</li>
+                <li class="a1five"><a href="http://wxjyggw.wxjy.com.cn" target="_blank">关心下一代</a></li>
+                <li class="spe">|</li>
+                <li class="a1"><a href="http://football.wxjy.com.cn" target="_blank">校园足球</a></li>
+<li class="spe">|</li>
+                <li class="a1five"><a href="http://www.xzdxt.com" target="_blank">行知大学堂</a></li>
+            </ul>
+    </div>
+</div>
+    <!--栏目导航 E-->
+    <!--图片链接 S-->
+    <div class="picLinks">
+<ul>
+        	  <li class="a1"><script  type="text/javascript" src='/IAA/201310/4.js'></script></li>
+            <li class="a2"><script  type="text/javascript" src='/IAA/201310/5.js'></script></li>
+            <li class="a3"><script  type="text/javascript" src='/IAA/201310/6.js'></script></li>
+        </ul>
+    </div>
+
+    <!--图片链接 E-->
+</div>
+<!--Header E-->
+<!--Content S-->
+<div id="Content">
+	<!--Layout-1 S-->
+	<div class="Layout-1">
+        <!--side S-->
+        <div class="side">
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201404/15.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+<!--最新关注 S-->
+            <div class="sideBox" id="Notice">
+                <div class="hd">
+                    <span><a href="/Category_8/Index.aspx">更多&gt;&gt;</a></span><h3>最新关注</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+                       
+            <li><a href="/Item/121030.aspx" target="_blank">关于做好2016年全市小学毕业考试工作的通知</a></li><li><a href="/Item/121029.aspx" target="_blank">关于做好2016年无锡市区幼儿园招生工作的意见</a></li><li><a href="/Item/120923.aspx" target="_blank">关于筹备成立无锡市中职学校团学工作联盟的通知</a></li><li><a href="/Item/120847.aspx" target="_blank">江苏省教育工作先进集体和先进个人推荐名单公示</a></li><li><a href="/Item/120838.aspx" target="_blank">关于实施职业教育质量提升工程加快培养高素质技能人才的意见</a></li><li><a href="/Item/120771.aspx" target="_blank">关于开展2016年市属学校优秀少先队员评选暨参加省、市“好少年”展…</a></li><li><a href="/Item/120541.aspx" target="_blank">关于开展2016年市属学校少先队“魅力中队”评选活动的通知</a></li>
+          
+                    </ul>
+                </div>
+            </div>
+            <!--最新关注 E-->
+<!--微博调用 S-->
+            <div class="sideBox" id="Notice">
+                <div class="hd">
+<h3>教育微博</h3>
+                </div>
+                <div class="bd">
+                    <ul><iframe width="220" height="250" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=220&height=250&fansRow=1&ptype=1&speed=100&skin=5&isTitle=0&noborder=0&isWeibo=1&isFans=0&uid=1993203494&verifier=b293b5df&dpc=1"></iframe></ul>
+                </div>
+            </div>
+            <!--微博调用 E-->
+            <!--专题链接 S-->
+            <div class="special">
+      <ul>
+<li class="a2"><script  type="text/javascript" src='/IAA/201310/1.js'></script></li>
+      <li class="a2"><script  type="text/javascript" src='/IAA/201512/29.js'></script></li>
+         <li class="a2"><script  type="text/javascript" src='/IAA/201310/2.js'></script></li>
+          <li class="a2"><script  type="text/javascript" src='/IAA/201310/3.js'></script></li>
+      <li class="a2"><script  type="text/javascript" src='/IAA/201506/27.js'></script></li>
+      <li class="a2"><script  type="text/javascript" src='/IAA/201407/20.js'></script></li>
+       </ul>
+</div>
+            <!--专题链接 E-->
+            
+            <div class="blank"></div>
+            
+            <!--资讯速递S-->
+            <div class="sideBox" id="infor">
+                <div class="hd">
+                    <span><a href="/Category_9/Index.aspx">更多&gt;&gt;</a></span><h3>资讯速递</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+                       
+            <li><a href="/Item/119613.aspx" target="_blank">关于开展第十五届无锡市幼儿模特大赛的通知</a></li><li><a href="/Item/119612.aspx" target="_blank">关于开展第三届无锡市关爱动物小天使选拔赛的通知</a></li><li><a href="/Item/115713.aspx" target="_blank">夕阳红老年大学招聘启事</a></li><li><a href="/Item/114111.aspx" target="_blank">关于2015年江苏省“领航杯”多媒体教育软件比赛无锡选拔赛各级获奖…</a></li>
+          
+                    </ul>
+                </div>
+            </div>
+            
+            <!--资讯速递E-->
+            <div class="blank"></div>
+        </div>
+        <!--side E-->
+        <!--main S-->
+        <div class="main">
+        	<!-- 焦点图 S-->
+        	<div id="focusNews">
+            	<div class="slideBox-news">
+            	
+                <ul class="hd">
+  <li><a class=" a1">1</a></li>
+  <li><a class=" a2">2</a></li>
+  <li><a class=" a3">3</a></li>
+  <li><a class=" a4">4</a></li>
+  <li><a class=" a5">5</a></li>
+</ul>
+<ul class="slideCon">
+  <li>
+    <div class="pic"><a href="/Item/120744.aspx" target="_blank"><img src="/UploadFiles/2016/4/201604181538037592_358_255.jpg" alt="“明日之星”校园优秀书画作品巡展启动"></a></div>
+    <p class="title"><a href="/Item/120744.aspx" target="_blank">“明日之星”校园优秀书画作品巡展启动</a></p>
+  </li>
+  <li>
+    <div class="pic"><a href="/Item/119347.aspx" target="_blank"><img src="/UploadFiles/2016/4/201604051617255268_358_255.jpg" alt="2016无锡市国际教育专家报告会举行"></a></div>
+    <p class="title"><a href="/Item/119347.aspx" target="_blank">2016无锡市国际教育专家报告会举行</a></p>
+  </li>
+  <li>
+    <div class="pic"><a href="/Item/118554.aspx" target="_blank"><img src="/UploadFiles/2016/3/201603281522283375_358_255.jpg" alt="2015无锡“阳光学子”颁奖会暨教育专家报告会举行"></a></div>
+    <p class="title"><a href="/Item/118554.aspx" target="_blank">2015无锡“阳光学子”颁奖会暨教育专家报…</a></p>
+  </li>
+  <li>
+    <div class="pic"><a href="/Item/118526.aspx" target="_blank"><img src="/UploadFiles/2016/3/201603281522452047_358_255.jpg" alt="我市开展公益早教指导活动 提高家长科学育儿水平"></a></div>
+    <p class="title"><a href="/Item/118526.aspx" target="_blank">我市开展公益早教指导活动 提高家长科学…</a></p>
+  </li>
+  <li>
+    <div class="pic"><a href="/Item/118456.aspx" target="_blank"><img src="/UploadFiles/2016/3/201603281523070329_358_255.jpg" alt="我市举行首届中小学无线电测向比赛"></a></div>
+    <p class="title"><a href="/Item/118456.aspx" target="_blank">我市举行首届中小学无线电测向比赛</a></p>
+  </li>
+</ul>
+              
+                </div>
+                <div class="next">></div>
+                <div class="prev"><</div>
+        </div>
+        <script type="text/javascript">
+jQuery("#focusNews").hover(function(){ jQuery(this).find(".prev,.next").stop(true,true).fadeTo("show",0.7) },function(){ jQuery(this).find(".prev,.next").fadeOut() });
+jQuery("#focusNews").slide({ mainCell:".slideCon",effect:"fold", autoPlay:true, delayTime:600, trigger:"click"});
+
+</script>
+            <!-- 焦点图 E-->            <!-- 最新消息 S-->
+            <div class="Most">
+            	<ul style="line-height:24px;">
+<li style="margin-top:8px;border-bottom:1px #ccc dashed;"><a href="/Item/120848.aspx" target="_blank"  style="font-weight:bold;color:#cc0000;">我市将斥资亿元实施职业教育质量提升工程</a></li>
+<li style="margin-top:8px;border-bottom:1px #ccc dashed;"><a href="/Item/120542.aspx" target="_blank"  style="font-weight:bold;color:#cc0000;">全市职业院校现代学徒制专题培训班开班</a></li>
+<li style="margin-top:8px;"><a href="/Item/118938.aspx" target="_blank"  style="font-weight:bold;color:#cc0000;">全市初中教育暨“新优质学校”培育建设推进会召开</a></li>
+<li style="margin-top:3px;"><a href="/Item/119402.aspx" target="_blank"  style="font-weight:bold;color:#2C67A9;">我市启动“初中学科课程基地”建设三年行动计划</a></li>
+<li style="margin-top:3px;border-bottom:1px #ccc dashed;"><a href="/Item/119401.aspx" target="_blank"  style="font-weight:bold;color:#2C67A9;">无锡“新优质”学校三年规划发布</a></li>
+<li style="margin-top:8px;border-bottom:1px #ccc dashed;"><a href="/Item/120492.aspx" target="_blank"  style="font-weight:bold;color:#2C67A9;">我市选送三节目获全国中小学生艺术展演一等奖</a></li>
+<li style="margin-top:8px;border-bottom:1px #ccc dashed;"><a href="/Item/119959.aspx" target="_blank"  style="font-weight:bold;color:#2C67A9;">全国学生资助管理中心致普通高中应届毕业生的公开信</a></li>
+<li style="margin-top:8px;"><font color="#cc0000"><b>【无锡女教师风采】</b></font><a href="/Item/121007.aspx" target="_blank"  style="font-weight:bold;color:#2C67A9;">张静：教育无小事 事事都育人</a></li>
+</div>
+            <!-- 最新消息 E-->
+<!--锡城教育/教育督导 S-->
+            <div class="mainBox fl" id="tabxc">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_11/Index.aspx" target="_blank">锡城教育</a></h3><span class="line"></span></li>
+                        <li><h3><a href="http://jydd.wxjy.com.cn" target="_blank">教育督导</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/120982.aspx" target="_blank">锡山中小学开展信息技术课“评优”活动</a></li><li><a href="/Item/120957.aspx" target="_blank">市少年宫：为锡城孩子做一件大好事</a></li><li><a href="/Item/120871.aspx" target="_blank">校企合作：“红豆”“北服”牵手</a></li><li><a href="/Item/120848.aspx" target="_blank">我市将斥资亿元实施职业教育质量提升工程</a></li><li><a href="/Item/120820.aspx" target="_blank">新吴教育局开展2015年新教师岗位培训活动</a></li><li><a href="/Item/120744.aspx" target="_blank">“明日之星”校园优秀书画作品巡展启动</a></li><li><a href="/Item/120708.aspx" target="_blank">全市“智慧课堂”教学展示在锡山举行</a></li><li><a href="/Item/120709.aspx" target="_blank">锡城300余小棋手再度博弈“柏庄杯”</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/120632.aspx" target="_blank">重庆责任督学挂牌督导全覆盖 责任督学专职化</a></li><li><a href="/Item/120486.aspx" target="_blank">上海：宝山区正式启动 “十二五”教育综合督政…</a></li><li><a href="/Item/120218.aspx" target="_blank">督导：明确方向 焕发生机</a></li><li><a href="/Item/119407.aspx" target="_blank">合肥市包河区：发展性协商式评估激发学校自主生长</a></li><li><a href="/Item/119728.aspx" target="_blank">山东青岛：召开2016年教育督导委员会工作会议</a></li><li><a href="/Item/119480.aspx" target="_blank">新学校 新思考 新作为</a></li><li><a href="/Item/119479.aspx" target="_blank">开学工作井然有序 良好开端推动发展</a></li><li><a href="/Item/119478.aspx" target="_blank">依托名人文化，发挥育人功能</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--锡城教育/教育督导 E-->
+            <script type="text/javascript">jQuery("#tabxc").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+            <!--学校快讯/校园采风 S-->
+            <div class="mainBox fr" id="tabxx">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_13/Index.aspx" target="_blank">学校快讯</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_14/Index.aspx" target="_blank">校园采风</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/121036.aspx" target="_blank">华庄中学：“五老”牵手“五生”帮教活动开启新…</a></li><li><a href="/Item/121035.aspx" target="_blank">新惠幼儿园：给我们点赞，为团队添彩</a></li><li><a href="/Item/121034.aspx" target="_blank">锡师附小：特色方阵显身手 师生协力大练兵</a></li><li><a href="/Item/121031.aspx" target="_blank">蠡园实幼：种植童话，收货成长</a></li><li><a href="/Item/121028.aspx" target="_blank">农坝小学：“性教育课”走进校园</a></li><li><a href="/Item/121027.aspx" target="_blank">三高中：开展教职工应急救护培训</a></li><li><a href="/Item/121025.aspx" target="_blank">刘潭实幼：亲子同台展风采 童话故事伴成长</a></li><li><a href="/Item/121024.aspx" target="_blank">旅商高职：齐心协力共合作  排除万难勇向前——…</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/115489.aspx" target="_blank">夹城里小学：在礼仪教育中收获文明之花</a></li><li><a href="/Item/121026.aspx" target="_blank">天一中学美术课“大变脸”</a></li><li><a href="/Item/111899.aspx" target="_blank">江苏无锡商业职技学院：如何“走出去”办学？</a></li><li><a href="/Item/111555.aspx" target="_blank">新城中学：成长中的绿茵记忆——首届校园足球联…</a></li><li><a href="/Item/110783.aspx" target="_blank">新安实小：十年风雨兼程 铸就辉煌业绩</a></li><li><a href="/Item/106960.aspx" target="_blank">南星诗苑：心中有爱，腹中有诗</a></li><li><a href="/Item/106588.aspx" target="_blank">无锡职业技术学院：企业难题就是高职科研课题</a></li><li><a href="/Item/106137.aspx" target="_blank">新安实小：崇雅尚美，让“绿色教育”之花精彩绽放</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--学校快讯/校园采风 E-->
+            <script type="text/javascript">jQuery("#tabxx").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+            <div class="clear blank"></div>
+             <div class="blank18"></div>
+            <!--国内教育/国际教育 S-->
+            <div class="mainBox fl" id="tabdc">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_22/Index.aspx" target="_blank">国内教育</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_5/Index.aspx" target="_blank">国际教育</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/120836.aspx" target="_blank">创造良好学校文化 促进学生全面发展</a></li><li><a href="/Item/120835.aspx" target="_blank">全国教育报联盟年会在昆山举行</a></li><li><a href="/Item/120834.aspx" target="_blank">33校医学生在宁“比武”　孕妇临产、骨折、中毒…</a></li><li><a href="/Item/120833.aspx" target="_blank">关注：建立民办校分类登记分类管理制度</a></li><li><a href="/Item/120832.aspx" target="_blank">教育大数据蓝皮书指出：数据将成学校核心资产</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/120641.aspx" target="_blank">加纳赴华留学生：学中文助我赢在起跑线上</a></li><li><a href="/Item/120640.aspx" target="_blank">教育部：2015年全国各类外国留学人员近40万</a></li><li><a href="/Item/120547.aspx" target="_blank">2015年全国来华留学生数据发布</a></li><li><a href="/Item/120019.aspx" target="_blank">新GRE亚洲考生量上涨9%</a></li><li><a href="/Item/120017.aspx" target="_blank">留不留学不妨多几个问号</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--国内教育/国际教育 E-->
+            <script type="text/javascript">jQuery("#tabdc").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+            <!--招生考试/深度观察 S-->
+            <div class="mainBox fr" id="tabzs">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_3/Index.aspx" target="_blank">招生考试</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_23/Index.aspx" target="_blank">深度观察</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/121064.aspx" target="_blank">关于做好2016年全市小学毕业考试工作的通知</a></li><li><a href="/Item/121065.aspx" target="_blank">关于做好2016年无锡市区幼儿园招生工作的意见</a></li><li><a href="/Item/120897.aspx" target="_blank">江苏省2016年普通高校专转本选拔考试征求平行志…</a></li><li><a href="/Item/120896.aspx" target="_blank">我省2016年体育专业统考顺利进行</a></li><li><a href="/Item/120580.aspx" target="_blank">我省2016年4月自学考试即将开考</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/120312.aspx" target="_blank">生存现状调查显示：农村教师身心健康有隐忧</a></li><li><a href="/Item/118353.aspx" target="_blank">新生代农民工职业成长调查</a></li><li><a href="/Item/117825.aspx" target="_blank">智能机器人专家解读“人机大战”</a></li><li><a href="/Item/114292.aspx" target="_blank">幼儿专家给家长支招：怎样帮孩子选幼儿园？</a></li><li><a href="/Item/114085.aspx" target="_blank">教育漫谈：顶尖大学还需要招收艺术特长生吗？</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--招生考试/国际教育 E-->
+			<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201404/14.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201406/18.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+
+            <script type="text/javascript">jQuery("#tabzs").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+           <ul><li></li><ul>
+            <!--论坛 S-->
+        <div class="mainBox-1" id="Forum">
+            <div class="H_tit">
+                <ul>
+                    <li><a href="/Category_24/Index.aspx">校长视点</a></li>
+<li><a href="/Category_25/Index.aspx">教育人物</a></li>
+<li><a href="/Category_26/Index.aspx">学术交流</a></li>
+<li><a href="/Category_27/Index.aspx">教育随笔</a></li>
+                </ul>
+            </div>
+                
+            <div class="clear blank"></div>
+                
+            <!--校长视点 S-->
+            <div class="mainBox fl" id="fbdt">
+                <div class="hd">
+                    <span class="more"><a href="/Category_24/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_24/Index.aspx">校长视点</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                      
+            <li><a href="/Item/119527.aspx" target="_blank">武和平：学校文化建设的挖掘与思考</a></li><li><a href="/Item/116217.aspx" target="_blank">沈茂德：“建个读书的好地方”——学校空间领导…</a></li><li><a href="/Item/113371.aspx" target="_blank">朱益民：奉泰伯千年古风 铸学校文化品牌</a></li><li><a href="/Item/107125.aspx" target="_blank">李燕：在公共生活中唤醒自治的种子</a></li><li><a href="/Item/105501.aspx" target="_blank">王稼伟：现代学徒制 职业教育的生活回归</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--校长视点 E-->
+                
+            <!--教育人物 S-->
+            <div class="mainBox fr" id="lxsw">
+                <div class="hd">
+                    <span class="more"><a href="/Category_25/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_25/Index.aspx">教育人物</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               
+            <div class="bd"> 
+              <ul>
+                
+            <li><a href="/Item/121007.aspx" target="_blank">【女教师风采】张静：教育无小事 事事都育人</a></li><li><a href="/Item/120233.aspx" target="_blank">【女教师风采】孙雪芳：做学生心中的“孙妈”</a></li><li><a href="/Item/120021.aspx" target="_blank">张学铭：最牵挂的是青少年成长</a></li><li><a href="/Item/119405.aspx" target="_blank">【女教师风采】张绿枝：平凡的奉献成就精彩</a></li><li><a href="/Item/117970.aspx" target="_blank">【女教师风采】沈亚琴：教学精益求精 育人永葆…</a></li>
+           
+              </ul> 
+              </div>
+            </div>
+            <!--教育人物 E-->
+                
+            <div class="clear blank"></div>
+                
+            <!--学术交流 S-->
+            <div class="mainBox fl" id="lxsp">
+                <div class="hd">
+                    <span class="more"><a href="/Category_26/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_26/Index.aspx">学术交流</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/118644.aspx" target="_blank">【学教育法 说教育事】教师侮辱学生如何担责</a></li><li><a href="/Item/117682.aspx" target="_blank">【学教育法 说教育事】教师能否私拆学生信件</a></li><li><a href="/Item/117677.aspx" target="_blank">【学教育法 说教育事】能否以学无所成状告学校？</a></li><li><a href="/Item/117083.aspx" target="_blank">【学教育法 说教育事】学生打扫卫生不幸摔伤，…</a></li><li><a href="/Item/115550.aspx" target="_blank">【学教育法 说教育事】义务教育阶段学校能否开…</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--学术交流 E-->
+                
+            <!--教育随笔 S-->
+            <div class="mainBox fr" id="xbkc">
+                <div class="hd">
+                    <span class="more"><a href="/Category_27/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_27/Index.aspx">教育随笔</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/119767.aspx" target="_blank">转变从尊重开始</a></li><li><a href="/Item/106013.aspx" target="_blank">让班集体活动成功阻击“小霸王行为”</a></li><li><a href="/Item/100654.aspx" target="_blank">“孙子兵法”使忠言变得“顺耳”</a></li><li><a href="/Item/100653.aspx" target="_blank">这样的微信背后的几点思考</a></li><li><a href="/Item/100652.aspx" target="_blank">炎黄育热血 华夏多豪杰——学习张纪清先进事迹…</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--教育随笔 E-->
+        </div>
+        <!--论坛 E-->
+			<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201407/21.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201401/8.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+        </div>
+        <!--main E-->
+    </div>
+    <!--Layout-1 E--><div class="ad"><script  type="text/javascript" src='/IAA/201310/7.js'></script></div>
+<!--Layout-2 S-->
+    <div class="Layout-2">
+    	<!--side S-->
+    	<div class="side">
+        	<!--教育视频 S-->
+            <div class="sideBox" id="Interview">
+            	<div class="hd"><span><a href="/Category_10/Index.aspx">更多&gt;&gt;</a></span><h3>教育视频</h3></div>
+                <div class="bd">
+<div class="zhibo">
+<img src="/Template/Default/Skin/education/images/wyc.jpg" width="100" height="90"/>
+<p><a href="http://www.wxjy.com.cn/Item/119395.aspx" target="_blank" title="2015教育年度人物" style="color: #c00;padding-bottom:5px; text-align:center;">2015教育年度人物</a></p>
+</div>
+<div class="qqweixin">
+<img src="/Template/Default/Skin/education/images/qqweixin.jpg" width="100" height="90"/>
+<p align="center"><a href="http://www.wxxscm.com.cn/Category_2/Index.aspx" target="_blank" title="无锡教育报道" style="color: #c00;padding-bottom:5px; text-align:center;">无锡教育报道</a></p>
+</div>
+<ul>
+                    
+            <li class="n"><div class="title"><a class="tit" href="/Item/120536.aspx" target="_blank" title="标题：音乐是最美的语言—江南中学举行“雏凤清音”学生民族管弦音乐会&#xD;点击数：0&#xD;发表时间：16年04月15日">音乐是最美的语言—江南中学举行…</a></div></li><li class="n"><div class="title"><a class="tit" href="/Item/120538.aspx" target="_blank" title="标题：权威发布 专家支招——2016无锡市国际教育专家报告会人气火爆&#xD;点击数：0&#xD;发表时间：16年04月06日">权威发布 专家支招——2016无锡…</a></div></li><li class="n"><div class="title"><a class="tit" href="/Item/119395.aspx" target="_blank" title="标题：2015无锡教育年度人物颁奖典礼&#xD;点击数：0&#xD;发表时间：16年04月06日">2015无锡教育年度人物颁奖典礼</a></div></li><li class="n"><div class="title"><a class="tit" href="/Item/119192.aspx" target="_blank" title="标题：我市召开全市初中教育暨“新优质学校”培育建设推进工作会&#xD;点击数：0&#xD;发表时间：16年04月01日">我市召开全市初中教育暨“新优质…</a></div></li><li class="n"><div class="title"><a class="tit" href="/Item/118265.aspx" target="_blank" title="标题：2015无锡教育年度人物颁奖会侧记&#xD;点击数：0&#xD;发表时间：16年03月25日">2015无锡教育年度人物颁奖会侧记</a></div></li><li class="n last"><div class="title"><a class="tit" href="/Item/118264.aspx" target="_blank" title="标题：“奠基未来·感动无锡”2015教育年度人物颁奖会隆重举行&#xD;点击数：0&#xD;发表时间：16年03月25日">“奠基未来·感动无锡”2015教育…</a></div></li>
+          
+                  </ul>
+                </div>
+            </div>
+            <!--教育视频 E-->
+    <div style="margin-top:10px"></div>
+            <!--教育博客 S-->
+            <div class="sideBox" id="blog">
+                <div class="hd">
+                    <span><a href="http://blog.wxjy.com.cn/">更多&gt;&gt;</a></span><h3>教育博客</h3> 
+                </div>
+                <div class="bd">
+                    <ul>
+                    <li><a href="http://blog.wxjy.com.cn/new/laofuzi/archives/2016/201639102517.html" target="_blank">老夫子：母亲的小屋</a></li>
+                        <li><a href="http://blog.wxjy.com.cn/new/wangjian/archives/2016/2016214145126.html" target="_blank">王荐：高中择校有用吗？</a></li>
+                        <li><a href="http://blog.wxjy.com.cn/new/liyan/archives/2016/2016221162540.html" target="_blank">李燕：自治与互助，让学生的个性之花尽情绽放</a></li>
+                        <li><a href="http://blog.wxjy.com.cn/new/buji/archives/2016/2016118105413.html" target="_blank">卜孟子：请给孩子一个纯真寒假</a></li>
+                        <li><a href="http://blog.wxjy.com.cn/new/ynzyjd/archives/2015/2015121116145.html" target="_blank">红森林：关于网络传闻与自我理性</a></li>  
+                        <li><a href="http://blog.wxjy.com.cn/new/jslgx/archives/2015/20151124213340.html" target="_blank">梁溪客：是足球进校园还是校园进足球？</a></li>
+                    </ul>
+                </div>
+</div>
+            
+            <!--教育博客 E-->
+            <!--小记者乐园 S-->
+            <div class="sideBox" id="Reporter">
+            	<div class="hd"><span><a href="http://www.wxxscm.com.cn/Category_22/Index.aspx">更多&gt;&gt;</a></span><h3>小记者乐园</h3></div>
+                <div class="bd">
+                	<div class="box on">
+                    	<div class="H_tit"><a href="http://www.wxxscm.com.cn/Category_22/Index.aspx" target="_blank"><h3>作品专辑</h3></a></div>
+<div class="H_bd">
+<ul>
+<li class="t">
+   <div class="pic"><a><img src="http://file.wxxscm.com.cn/Files/video/4/201604111617342589.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="http://www.wxxscm.com.cn/Item/166795.aspx" target="_blank">距离</a></div>
+</li>
+<li class="t">
+   <div class="pic"><a><img src="http://file.wxxscm.com.cn/Files/video/4/201604111112514409.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="http://www.wxxscm.com.cn/Item/166712.aspx" target="_blank">请找回自尊</a></div>
+</li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166710.aspx" target="_blank">【作品】安小的樱花</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166794.aspx" target="_blank">【作品】鸡蛋的秘密</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166714.aspx" target="_blank">【作品】跟外婆一起卖菜</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166712.aspx" target="_blank">【作品】请找回自尊</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166704.aspx" target="_blank">【作品】做梦都想着的生活环境</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166701.aspx" target="_blank">【作品】一张充满爱的车票</a></li>
+<li class="n"><a href="http://www.wxxscm.com.cn/Item/166700.aspx" target="_blank">【作品】阳山探春！</a></li>
+</ul>
+</div>
+                    </div>
+                    
+                    
+                    <div class="box">
+                        <div class="H_tit"><a href="http://www.wxxscm.com.cn/Category_22/Index.aspx"><h3>小记者活动</h3></a></div>
+<!--<div class="H_bd">
+<ul>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">雏鹰起飞</a></div>
+</li>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">雏鹰起飞</a></div>
+</li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+</ul>
+</div>-->
+                    </div>
+                    
+                    <div class="box">
+                        <div class="H_tit"><a href="http://www.wxxscm.com.cn/Category_22/Index.aspx"><h3>小记者风采</h3></a></div>
+<!--<div class="H_bd">
+<ul>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">玩转乐园</a></div>
+</li>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">玩转乐园</a></div>
+</li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+</ul>
+</div>-->
+                    </div>
+                    
+                    <div class="box">
+                        <div class="H_tit"><a href="http://www.wxxscm.com.cn/Category_22/Index.aspx"><h3>小记者课堂</h3></a></div>
+<!--<div class="H_bd">
+<ul>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">百草园书屋</a></div>
+</li>
+<li class="t">
+   <div class="pic"><a><img src="/Template/Default/Skin/education/images/cs001.jpg" width="212" height="147"  alt=""/></a></div>
+   <div class="title"><a href="">百草园书屋</a></div>
+</li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+<li class="n"><a href="">唐江澎：培养负责任的表达者</a></li>
+</ul>
+</div>-->
+                    </div>
+                </div>
+            </div>
+            <!--小记者乐园 E-->
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:10px auto;"><script  type="text/javascript" src='/IAA/201402/11.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+           <!-- <script type="text/javascript">jQuery("#Reporter .bd").slide({ titCell:".box", targetCell:"ul", trigger:"click" })</script> -->
+        </div>
+        <!--side E-->  
+        <div class="main">
+<!--学校快讯more S-->
+        <div class="mainBox-1" id="school">
+            <div class="H_tit">
+                <ul>
+                    <li><a href="/Category_165/Index.aspx">幼儿园</a></li>
+<li><a href="/Category_166/Index.aspx">小学</a></li>
+<li><a href="/Category_167/Index.aspx">初中</a></li>
+<li><a href="/Category_168/Index.aspx">高中</a></li>
+<li><a href="/Category_169/Index.aspx">职校</a></li>
+<li><a href="/Category_170/Index.aspx">创客</a></li>
+                </ul>
+            </div>
+                
+            <div class="clear blank"></div>
+                
+            <!--幼儿园 S-->
+            <div class="mainBox fl" id="fbdt">
+                <div class="hd">
+                    <span class="more"><a href="/Category_165/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_165/Index.aspx">幼儿园</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                      
+            <li><a href="/Item/121035.aspx" target="_blank">新惠幼儿园：给我们点赞，为团队添彩</a></li><li><a href="/Item/121031.aspx" target="_blank">蠡园实幼：种植童话，收货成长</a></li><li><a href="/Item/121025.aspx" target="_blank">刘潭实幼：亲子同台展风采 童话故事伴成长</a></li><li><a href="/Item/121021.aspx" target="_blank">宁海里幼：教研引领，互学共进</a></li><li><a href="/Item/121019.aspx" target="_blank">震泽实幼：小小童军，英姿飒爽</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--幼儿园 E-->
+                
+            <!--小学 S-->
+            <div class="mainBox fr" id="lxsw">
+                <div class="hd">
+                    <span class="more"><a href="/Category_166/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_166/Index.aspx">小学</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               
+            <div class="bd"> 
+              <ul>
+                
+            <li><a href="/Item/121034.aspx" target="_blank">锡师附小：特色方阵显身手 师生协力大练兵</a></li><li><a href="/Item/121028.aspx" target="_blank">农坝小学：“性教育课”走进校园</a></li><li><a href="/Item/121023.aspx" target="_blank">蠡湖小学：获江苏省第十届金钥匙智力竞技第一名</a></li><li><a href="/Item/121022.aspx" target="_blank">南长培智：与爱同行 关爱特殊儿童</a></li><li><a href="/Item/121004.aspx" target="_blank">育红万科：学习书法知识 争做写字能手</a></li>
+           
+              </ul> 
+              </div>
+            </div>
+            <!--小学 E-->
+                
+            <div class="clear blank"></div>
+                
+            <!--初中 S-->
+            <div class="mainBox fl" id="lxsp">
+                <div class="hd">
+                    <span class="more"><a href="/Category_167/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_167/Index.aspx">初中</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/121036.aspx" target="_blank">华庄中学：“五老”牵手“五生”帮教活动开启新…</a></li><li><a href="/Item/121011.aspx" target="_blank">凤翔实验学校：种下一抹新绿，播下一份希望</a></li><li><a href="/Item/121008.aspx" target="_blank">江南中学：传承革命精神，凝聚青春力量</a></li><li><a href="/Item/120998.aspx" target="_blank">旺庄中学：紫藤架下会书友，翰海深处求真知</a></li><li><a href="/Item/120983.aspx" target="_blank">河埒中学：醉美春天徒步活动暨集体照摄影比赛圆…</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--初中 E-->
+                
+            <!--高中 S-->
+            <div class="mainBox fr" id="xbkc">
+                <div class="hd">
+                    <span class="more"><a href="/Category_168/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_168/Index.aspx">高中</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/121027.aspx" target="_blank">三高中：开展教职工应急救护培训</a></li><li><a href="/Item/120995.aspx" target="_blank">辅仁高中：群英荟萃耀三尺讲台，以文会友迎八方…</a></li><li><a href="/Item/120962.aspx" target="_blank">三高中：汗水在操场上绽放出光彩</a></li><li><a href="/Item/120888.aspx" target="_blank">洛社高中：磨练意志 携爱远行</a></li><li><a href="/Item/120885.aspx" target="_blank">堰桥高中：法律讲座也生动，风险防控更专业</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--高中 E-->
+ <!--职校 S-->
+            <div class="mainBox fl" id="lxsp">
+                <div class="hd">
+                    <span class="more"><a href="/Category_169/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_169/Index.aspx">职校</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/121024.aspx" target="_blank">旅商高职：齐心协力共合作  排除万难勇向前——…</a></li><li><a href="/Item/121005.aspx" target="_blank">锡山中专：组织食品安全培训</a></li><li><a href="/Item/120979.aspx" target="_blank">无锡技师学院（立信中专）：急救知识进校园 岗…</a></li><li><a href="/Item/120925.aspx" target="_blank">无锡卫生高职校：“文明守纪树良风，安全教育我…</a></li><li><a href="/Item/120913.aspx" target="_blank">汽车工程：缅怀革命先烈，弘扬民族精神</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--职校 E-->
+                
+            <!--创客 S-->
+            <div class="mainBox fr" id="xbkc">
+                <div class="hd">
+                    <span class="more"><a href="/Category_170/Index.aspx">更多&gt;&gt;</a></span>
+                    <ul>
+                        <li class="on"><h3><a href="/Category_170/Index.aspx">创客</a></h3><span class="line"></span></li>
+                    </ul>
+               </div>
+               <div class="bd">
+                   <ul>
+                       
+            <li><a href="/Item/117307.aspx" target="_blank">无锡一中：举办首次校园创客分享会</a></li><li><a href="/Item/117290.aspx" target="_blank">唐杰：技能成就创新梦想</a></li><li><a href="/Item/117302.aspx" target="_blank">夹城里中心小学出了“小院士”</a></li><li><a href="/Item/117297.aspx" target="_blank">设计出“高科技药箱”的高中生</a></li><li><a href="/Item/117299.aspx" target="_blank">戴红：迷上“创意设计”的女孩</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+            <!--创客 E-->
+        </div>
+        <!--学校快讯more E-->
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:5px auto;"><script  type="text/javascript" src='/IAA/201401/10.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+<!--梁溪书苑 S-->
+            <div class="mainBox-1" id="Press">
+            	<div class="H_tit">
+                	<ul>
+                    	<li><a href="/Category_43/Index.aspx">动态发布</a></li>
+<li><a href="/Category_44/Index.aspx">梁溪书屋</a></li>
+<li><a href="/Category_45/Index.aspx">梁溪书评</a></li>
+<li><a href="/Category_46/Index.aspx">梁溪读书会</a></li>
+<li><a href="/Category_47/Index.aspx">校本课程</a></li>
+                    </ul>
+                </div>
+                
+                <div class="clear blank"></div>
+                <!--读书会/梁溪书评 S-->
+            <div class="mainBox fl" id="tabds">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_46/Index.aspx" target="_blank">读书会</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_45/Index.aspx" target="_blank">梁溪书评</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/119960.aspx" target="_blank">夏丏尊 / 叶圣陶 《文心》</a></li><li><a href="/Item/119957.aspx" target="_blank">林文采/伍娜 《心理营养》</a></li><li><a href="/Item/119807.aspx" target="_blank">曹文轩《火印》</a></li><li><a href="/Item/118440.aspx" target="_blank">胡适《容忍比自由更重要 》</a></li><li><a href="/Item/118437.aspx" target="_blank">季羡林《清华园日记》</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/119955.aspx" target="_blank">她的“父女情书”，抚慰了我们的记忆</a></li><li><a href="/Item/118452.aspx" target="_blank">沈从文：从逃学大师到文学大师</a></li><li><a href="/Item/118446.aspx" target="_blank">战地记者的文学视界</a></li><li><a href="/Item/117660.aspx" target="_blank">毕淑敏：旅游是对作家的职业要求</a></li><li><a href="/Item/117653.aspx" target="_blank">一种新文体——读蒋一谈《截句》</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+<!--读书会/梁溪书评 E-->
+            <script type="text/javascript">jQuery("#tabds").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+<!--梁溪书屋/校本课程 S-->
+            <div class="mainBox fl" id="tabsw">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_44/Index.aspx" target="_blank">梁溪书屋</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_47/Index.aspx" target="_blank">校本课程</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/119688.aspx" target="_blank">钱碧玉《正思维、正能量和正教育——魅力班主任…</a></li><li><a href="/Item/99154.aspx" target="_blank">沈茂德《家庭教育是什么》</a></li><li><a href="/Item/71574.aspx" target="_blank">华士高中耿怀海老师的又一力作《幸福语文：后生…</a></li><li><a href="/Item/70897.aspx" target="_blank">《守望成长 精彩育人》正式出版发行</a></li><li><a href="/Item/66272.aspx" target="_blank">唐江澎与体悟教学</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/115140.aspx" target="_blank">江南实小：推进重点项目 落实校本规划</a></li><li><a href="/Item/115141.aspx" target="_blank">河埒中学：勾画入学手册 丰富德育校本</a></li><li><a href="/Item/115142.aspx" target="_blank">华庄中学：同伴分享是鲜活的校本教材</a></li><li><a href="/Item/115143.aspx" target="_blank">峰影小学：聆听主题宣讲 弘扬抗战精神 助推校本…</a></li><li><a href="/Item/115144.aspx" target="_blank">河埒中心小学：《同伴心理互助活动中的校本行动…</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+<!--梁溪书屋/校本课程 E-->
+            <script type="text/javascript">jQuery("#tabsw").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+            </div>
+            <!--梁溪书苑 E-->
+<!-- 图片广告 S-->          
+            <div class="clear blank"></div>
+<div class="banner" style="margin:10px auto;"><script  type="text/javascript" src='/IAA/201411/22.js'></script></div>
+<div class="clear blank"></div>
+<!-- 图片广告 E-->
+<!--学生心理 S-->
+        <div class="mainBox-1" id="Psych">
+            <div class="H_tit">
+                <ul>
+<a href="/Category_7/Index.aspx" target="_blank"  style="font-weight:bold;color:#26699D;">进入专题</a>　　　　　　
+</ul>
+            </div>
+            <div class="clear blank"></div>
+<!--心理剧场/快乐花季 S-->
+            <div class="mainBox fl" id="tabxl">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_132/Index.aspx" target="_blank">快乐花季</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_37/Index.aspx" target="_blank">心理剧场</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/121014.aspx" target="_blank">“她”</a></li><li><a href="/Item/121012.aspx" target="_blank">我爱你“马路天使”</a></li><li><a href="/Item/120550.aspx" target="_blank">一张照片带给我的欢乐回忆</a></li><li><a href="/Item/120549.aspx" target="_blank">我的小书房读《童年河》有感</a></li><li><a href="/Item/120414.aspx" target="_blank">我家的仓鼠</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/87622.aspx" target="_blank">归来</a></li><li><a href="/Item/87621.aspx" target="_blank">让欣赏绽放出最美的花</a></li><li><a href="/Item/87607.aspx" target="_blank">青春之偶然事件</a></li><li><a href="/Item/50572.aspx" target="_blank">不再孤独</a></li><li><a href="/Item/87596.aspx" target="_blank">让爱回家</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+<!--心理剧场/快乐花季 E-->
+            <script type="text/javascript">jQuery("#tabxl").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+           <!--心理导读/健康沙龙 S-->
+            <div class="mainBox fl" id="tabjk">
+            	<div class="hd">
+                	<ul>
+                        <li><h3><a href="/Category_39/Index.aspx" target="_blank">心理导读</a></h3><span class="line"></span></li>
+                        <li><h3><a href="/Category_133/Index.aspx" target="_blank">健康沙龙</a></h3><span class="line"></span></li>
+                    </ul>
+                    <div class="spe"></div>
+               </div>
+               <div class="bd">
+                   <ul>
+                        
+            <li><a href="/Item/120426.aspx" target="_blank">孩子性格发展的5个关键时期</a></li><li><a href="/Item/120259.aspx" target="_blank">经验丰富的老教师，给家长的5点忠告</a></li><li><a href="/Item/119940.aspx" target="_blank">每个诺奖得主背后都有一条了不起的家训</a></li><li><a href="/Item/119811.aspx" target="_blank">怎样的家庭教育会养出“懒”孩子？</a></li><li><a href="/Item/119659.aspx" target="_blank">内心敏感的孩子怎么教？？</a></li>
+          
+                   </ul> 
+                   <ul>
+                        
+            <li><a href="/Item/91142.aspx" target="_blank">师生、家长代表学生营养日走进快餐公司开放厨房</a></li><li><a href="/Item/120963.aspx" target="_blank">粥里放它 竟然断送了8个月孩子的性命</a></li><li><a href="/Item/120961.aspx" target="_blank">学校变“毒校”，学生招谁了？</a></li><li><a href="/Item/120922.aspx" target="_blank">酒店里的“白”床单你还敢睡吗？</a></li><li><a href="/Item/120711.aspx" target="_blank">他们的眼睛怎么说瞎就瞎了？</a></li>
+          
+                   </ul> 
+               </div>
+            </div>
+<!--心理导读/健康沙龙 E-->
+            <script type="text/javascript">jQuery("#tabjk").slide({titCell: ".hd li", mainCell:".bd",delayTime:0});</script>
+        </div>
+        <!--学生心理 E-->
+</div>
+    </div>
+    <!--Layout-2 E-->
+            <div class="clear blank"></div>
+<div class="banner" style="margin:10px auto;"><script  type="text/javascript" src='/IAA/201401/9.js'></script></div>
+<div class="clear blank"></div>
+    <div class="clear"></div>
+	<!--新闻专题 S-->
+    <div class="layout-3" id="Topics">
+        <div class="hd"><h3></h3></div>
+        <div class="bd">
+        	<ul>
+<li><a href="http://www1.wxxscm.com.cn/images/xscm/14ndrw/index_hxr.htm" target="_blank">“奠基未来　感动无锡”2014无锡教育年度人物</a></li>
+<li><a href="http://www.wxjy.com.cn/Category_134/Index.aspx" target="_blank">中小学生“少年传承中华传统美德”书法展示</a></li>
+<li><a href="http://www.wxjy.com.cn/aa/2015/zjz" target="_blank">全国职业教育活动周</a></li>
+<li><a href="http://www1.wxxscm.com.cn/mingrizhixing2014" target="_blank">“明日之星”无锡市第二届校园优秀书画作品展示</a></li>
+<li><a href="http://www.wxxscm.com.cn/images/2014/jzg" target="_blank">践行“社会主义核心价值观”动漫版</a></li>
+<li><a href="http://www.wxjy.com.cn/Category_92/Index.aspx" target="_blank">市委教育工委市教育局党的群众路线教育实践活动</a></li>
+<li><a href="http://www.wxjy.com.cn/aa/2014/jsj" target="_blank">“情系教育　毅行三十载”庆祝第三十个教师节</a></li>
+<li><a href="http://www.wxjy.com.cn/Category_114/Index.aspx" target="_blank">书画名家与青少年暑期互动交流活动</a></li>
+<li><a href="http://www.wxjy.com.cn/aa/2014/xjp" target="_blank">2014新加坡－无锡校长圆桌论坛</a></li>
+<li><a href="http:///www.wxjy.com.cn/Category_82/Index.aspx" target="_blank">“中国梦·教育梦·我的梦”主题摄影大赛</a></li>
+                <li><a href="http://www.wxjy.com.cn/aa/2013/chengxin" target="_blank">“诚信伴我成长”全市中小学生主题演讲比赛</a></li>
+                <li><a href="http://www.wxjy.com.cn/aa/2013/teacher" target="_blank">无锡市优秀教师风采展</a></li>
+                <li><a href="http://www.wxjy.com.cn/aa/2013/yw" target="_blank">无锡市义务教育高位均衡发展成果展示</a></li>
+                <li><a href="http://www.wxjy.com.cn/aa/2012/cxzycg" target="_blank">全市教育系统创先争优活动成果展示</a></li>
+                <li><a href="http://www.wxjy.com.cn/aa/2012/jg" target="_blank">“爱生·敬业·奉献”巾帼建功先进事迹风采录</a></li>
+            </ul>
+      </div>
+</div>
+    <!--新闻专题 E-->
+    <div class="clear"></div>
+    <div class="clear"></div>
+<div class="clear blank"></div>
+    <!--友情链接 S-->
+    <div id="Qlinks">
+    	<div class="hd"><h3></h3></div>
+        <div class="bd">
+<ul class="Drop">
+<li><a href="http://jy.wuxi.gov.cn" target="_blank" style="font-weight:bold;">无锡市教育局</a></li>
+            	<li>
+            <select id="friendsitelist" onchange="if(this.options[this.selectedIndex].value!=''){window.open(this.value);}"><option value=http://www.wxjy.com.cn>下属机构</option><option value=http://www.wxxscm.com.cn>无锡教育电视台</option><option value=http://www.edupsp.com/>无锡市电化教育馆</option><option value=http://www.wxjyzx.com.cn/>无锡市教育科学研究院</option><option value=http://www.wxgzb.com.cn>无锡市教育考试院</option><option value=http://zbzzzx.wxjy.com.cn>无锡市教育装备和学…</option><option value=http://www.wxsng.com/>无锡市少年宫</option><option value=http://www.wxjyxh.cn>无锡市教育学会</option><option value=http://www.wxjy.com.cn>--市属民办学校--</option><option value=http://www.wxyczx.cn/>无锡市育才中学</option><option value=http://www.wxfls.net/>无锡外国语学校</option><option value=http://www.daqiao.org.cn/>无锡市大桥实验学校</option><option value=http://www.wxfuren.com/>无锡市民办辅仁中学</option><option value=http://www.wxgh.net.cn/>私立无锡光华学校</option><option value=http://www.wxwf.net>无锡市吴风实验学校</option><option value=http://www.wuxixz.com>无锡市行知科技学校</option></select>
+           </li>
+<li><a href="http://jydd.wxjy.com.cn" target="_blank" style="font-weight:bold;">无锡市人民政府教育督导室</a></li>
+<li><b>无锡市教育局直属学校</b></li>
+                <li>
+            <select id="friendsitelist" onchange="if(this.options[this.selectedIndex].value!=''){window.open(this.value);}"><option value=>直属学校</option><option value=http://www.wxcu.edu.cn>无锡城市职业技术学…</option><option value=http://www.cmtxc.com/qpzx>中国企业管理无锡培…</option><option value=http://www.wxtvu.cn>无锡开放大学</option><option value=http://www.wxjd.com.cn/>无锡机电高等职业技…</option><option value=http://www.wxlysm.com.cn/>无锡旅游商贸高等职…</option><option value=http://www.wxgy.net>江苏省无锡汽车工程…</option><option value=http://www.wxjnzz.com/>无锡工业高级技工学…</option><option value=http://www.wxyzedu.net/>无锡市第一中学</option><option value=http://www.wxfr.net/>无锡市辅仁高级中学</option><option value=http://www.meicun.com/>江苏省梅村高级中学</option><option value=http://www.wxsgz.com/>无锡市第三高级中学</option><option value=http://www.wxsbgz.com/>无锡市市北高级中学</option><option value=http://www.wxynz.com>无锡市第一女子中学</option><option value=http://www.wxlgz.com/>无锡市第六高级中学</option><option value=http://qszx.wxjy.com.cn/>无锡市青山高级中学</option><option value=http://www.wxhbzx.com>无锡市湖滨中学</option><option value=http://www.jnzx.com.cn/>无锡市江南中学</option><option value=http://www.wxtjxx.com>无锡市特殊教育学校</option><option value=http://www.xsfx.com.cn/>江苏省无锡师范附属…</option><option value=http://www.wxsy.com.cn/>无锡市实验幼儿园</option><option value=http://www.wxjgyey.com>无锡市机关幼儿园</option><option value=http://cn.wids.cn>无锡国际学校</option></select>
+           </li>
+          </ul>
+        	<ul class="Ulist">
+            	
+            <li><a href="http://www.jyjy.net.cn" target="_blank">江阴教育网</a></li>
+<li><a href="http://www.yxedu.net" target="_blank">宜兴教育网</a></li>
+<li><a href="http://www.xsjy.com.cn" target="_blank">锡山教育网</a></li>
+<li><a href="http://www.hsjy.net" target="_blank">惠山教育网</a></li>
+<li><a href="http://www.bhjy.net" target="_blank">滨湖教育网</a></li>
+<li><a href="http://www.cajy.cn/" target="_blank">崇安教育网</a></li>
+<li><a href="http://www.ncjy.net/" target="_blank">南长教育网</a></li>
+<li><a href="http://www.btjy.com" target="_blank">北塘教育网</a></li>
+<li><a href="http://www.xqjy.com.cn" target="_blank">新区教育网</a></li>
+          
+            </ul>
+<!--栏目导航 S-->
+    <div class="sub">
+        <div>
+        	<ul>
+                <li>　　　　　　　　　　<a href="http://jjc2.wxjy.com.cn/index.asp" target="_blank" style="font-weight:bold;color:#00000;">基础教育</a>　　
+<a href="http://wxgz.wxjy.com.cn" target="_blank" style="font-weight:bold;color:#00000;">高教职教</a> 　　
+<a href="http://www.wxjy.com.cn/Category_3/Index.aspx" target="_blank" style="font-weight:bold;color:#00000;">无锡招考</a>　　
+<a href="http://wxyw.wxjy.com.cn" target="_blank" style="font-weight:bold;color:#00000;">语言文字</a>　　
+<a href="http://wxjyggw.wxjy.com.cn" target="_blank" style="font-weight:bold;color:#00000;">关爱工作</a>　　
+<a href="http://www.wxtsjy.cn" target="_blank" style="font-weight:bold;color:#00000;">特殊教育</a>　　
+<a href="http://88mm.wxjy.com.cn" target="_blank" style="font-weight:bold;color:#00000;">家长学校</a></li>
+</ul>
+</div>
+</div>
+    <!--栏目导航 E-->
+            <ul class="Upic">
+            
+            <li><a href="http://s.wxjy.com.cn" target="_blank"><img src="/UploadFiles/yqlj/2015/8/201508251651550021.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.moe.edu.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251003289888.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.ec.js.edu.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251006284081.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.jyb.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251009345548.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.jse.gov.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251012198640.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.jsjyt.gov.cn/col/col10041" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251014517909.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.csetv.com.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251024119483.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.csiedu.com.cn/" target="_blank"><img src="/UploadFiles/yqlj/2016/2/201602191154258927.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.qspfw.edu.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251029322282.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.wxtyw.com.cn" target="_blank"><img src="/UploadFiles/yqlj/2013/12/201312251031170156.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.wxcj.net.cn/" target="_blank"><img src="/UploadFiles/yqlj/2014/9/201409121116300351.jpg" border="0" alt="…" title="…"></a></li>
+<li><a href="http://www.wxjyxh.cn/" target="_blank"><img src="/UploadFiles/yqlj/2014/9/201409121116076713.jpg" border="0" alt="…" title="…"></a></li>
+          
+            </ul>
+        </div>
+    </div>
+    <!--友情链接 E-->
+<!--Content E-->
+</div>
+<!--Footer S-->
+<div id="Footer">
+	<p>主办单位：无锡教育电视台 无锡市教育信息化管理服务中心（无锡市电化教育馆） <br/>无锡教育网版权所有，未经书面授权禁止转载使用<br/>
+建议使用IE8.0以上版进进行浏览 <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备05011929号</a></p>
+<script src='/Analytics/CounterLink.aspx?Style=simple'></script>
+<script src="http://s13.cnzz.com/stat.php?id=2231110&web_id=2231110&online=1&show=line" language="JavaScript"></script>
+<br>
+<a href="http://js.cyberpolice.cn/servlet/PoliceServlet" target="_blank"><img src="http://www.wxjy.com.cn/aa/110/wj_gangting.gif" width="60" height="68" border=0/></a>
+</div>
+<!--Footer E-->
+</div>
+<!--Wrap E-->
+
+
+
+</body>
+</html>
